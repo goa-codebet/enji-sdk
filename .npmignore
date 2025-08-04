@@ -1,0 +1,37 @@
+# Source files - we only want the built dist folder
+src/
+
+# Development and build configuration
+tsconfig.json
+tsup.config.ts
+eslint.config.mjs
+eslint.config.mts
+.prettierrc
+
+# Development dependencies and lock files
+node_modules/
+package-lock.json
+
+# Development tools and IDE
+.vscode/
+.git/
+.gitignore
+
+# Test files (if any)
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+__tests__/
+tests/
+
+# Documentation (optional - remove if you want to include)
+README.md
+docs/
+
+# Misc development files
+.env*
+.DS_Store
+*.log
+coverage/
+.nyc_output/
