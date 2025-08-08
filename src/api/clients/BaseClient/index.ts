@@ -1,4 +1,4 @@
-import { Http } from "./Http";
+import { Http } from "@/api/Http";
 
 export abstract class BaseClient {
   private _http: Http;

@@ -4,15 +4,17 @@ export class Http {
     this.host = host;
   }
 
-  async get(
+  async get<T>(
     path: string,
-    data: Record<string, unknown> | null = null,
+    data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null
-  ) {
+  ): Promise<T> {
     const url = new URL(path, this.host);
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
-        url.searchParams.append(key, String(value));
+        if (value !== null && value !== undefined) {
+          url.searchParams.append(key, String(value));
+        }
       });
     }
 
@@ -37,11 +39,11 @@ export class Http {
     return res.json();
   }
 
-  async post(
+  async post<T>(
     path: string,
-    data: Record<string, unknown> | null = null,
+    data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null
-  ) {
+  ): Promise<T> {
     const url = new URL(path, this.host);
     const headers: Record<string, string> = {
       accept: "application/json",
