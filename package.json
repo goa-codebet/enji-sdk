@@ -2,7 +2,6 @@
   "name": "enji-sdk",
   "version": "1.0.0",
   "author": "",
-  "license": "ISC",
   "description": "",
   "scripts": {
     "build": "rm -rf dist && tsup",
@@ -13,11 +12,6 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
-    },
-    "./api": {
-      "types": "./dist/api/index.d.ts",
-      "require": "./dist/api/index.js",
-      "import": "./dist/api/index.mjs"
     }
   },
   "devDependencies": {
