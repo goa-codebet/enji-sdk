@@ -12,7 +12,7 @@ export class ExchangeRatesClient extends BaseClient {
    *
    * Example: { "USD": 1.1747, "EUR": 1 }
    */
-  async getAll(): Promise<ExchangeRates> {
+  async getAll() {
     return this.http.get<ExchangeRates>("/exchange-rates");
   }
 }

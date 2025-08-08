@@ -17,7 +17,7 @@ export class ContentClient extends BaseClient {
    *
    * Requires client IP
    */
-  async getBootstrap(country?: string): Promise<unknown> {
+  async getBootstrap(country?: string) {
     return this.http.get<unknown>(
       "/content/bootstrap",
       country ? { country } : null
@@ -36,7 +36,7 @@ export class ContentClient extends BaseClient {
     jurisdiction?: Jurisdiction;
     language?: string;
     state?: ContentDocumentState;
-  }): Promise<ContentDocumentModel> {
+  }) {
     return this.http.get<ContentDocumentModel>("/content/GetDocument", params);
   }
 }

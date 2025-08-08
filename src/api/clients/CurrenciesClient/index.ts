@@ -9,14 +9,14 @@ export class CurrenciesClient extends BaseClient {
   /**
    * Get all currencies
    */
-  async getCurrencies(): Promise<string[]> {
+  async getCurrencies() {
     return this.http.get<string[]>("/currencies");
   }
 
   /**
    * Get all active display currencies that are currently enabled on the skin
    */
-  async getDisplayCurrencies(): Promise<string[]> {
+  async getDisplayCurrencies() {
     return this.http.get<string[]>("/currencies/display");
   }
 }

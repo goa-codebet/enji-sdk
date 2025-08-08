@@ -42,23 +42,21 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client IP
    */
-  async signUp(params: SignUpParams): Promise<SignUpResponse> {
+  async signUp(params: SignUpParams) {
     return this.http.post<SignUpResponse>("/player/signup/v2", params);
   }
 
   /**
    * Sign up using verification code
    */
-  async signUpWithCode(params: SignUpCodeParams): Promise<SignUpCodeResponse> {
+  async signUpWithCode(params: SignUpCodeParams) {
     return this.http.post<SignUpCodeResponse>("/player/signup/code", params);
   }
 
   /**
    * Sign up using JWT token
    */
-  async signUpWithToken(
-    params: SignUpTokenparams
-  ): Promise<SignUpTokenResponse> {
+  async signUpWithToken(params: SignUpTokenparams) {
     return this.http.post<SignUpTokenResponse>("/player/signup/token", params);
   }
 
@@ -69,7 +67,7 @@ export class PlayerClient extends BaseClient {
     email: string,
     jurisdiction: Jurisdiction,
     isBouncedCheck?: boolean
-  ): Promise<boolean> {
+  ) {
     const params: Record<string, unknown> = { email, jurisdiction };
     if (isBouncedCheck) params.isBouncedCheck = isBouncedCheck;
     return this.http.get<boolean>("/player/validate-email", params);
@@ -78,10 +76,7 @@ export class PlayerClient extends BaseClient {
   /**
    * Validate if username is available for registration
    */
-  async validateUsername(
-    username: string,
-    jurisdiction: Jurisdiction
-  ): Promise<boolean> {
+  async validateUsername(username: string, jurisdiction: Jurisdiction) {
     const params: Record<string, unknown> = { username, jurisdiction };
     return this.http.get<boolean>("/player/validate-username", params);
   }
@@ -89,10 +84,7 @@ export class PlayerClient extends BaseClient {
   /**
    * Validate phone number
    */
-  async validatePhone(
-    phoneNumber: string,
-    jurisdiction: Jurisdiction
-  ): Promise<boolean> {
+  async validatePhone(phoneNumber: string, jurisdiction: Jurisdiction) {
     const params: Record<string, unknown> = { phoneNumber, jurisdiction };
     return this.http.get<boolean>("/player/validate-phone", params);
   }
@@ -104,8 +96,8 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async updateInfo(params: UpdatePlayerInfoParams): Promise<void> {
-    return this.http.post<void>("/player/update", params, this.sessionId);
+  async updateInfo(params: UpdatePlayerInfoParams) {
+    return this.http.post("/player/update", params, this.sessionId);
   }
 
   /**
@@ -113,7 +105,7 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getInfo(): Promise<PlayerInfo> {
+  async getInfo() {
     return this.http.get<PlayerInfo>("/player/user-info", null, this.sessionId);
   }
 
@@ -127,18 +119,14 @@ export class PlayerClient extends BaseClient {
   async changePassword(params: {
     CurrentPassword: string;
     NewPassword: string;
-  }): Promise<void> {
-    return this.http.post<void>(
-      "/player/change-password",
-      params,
-      this.sessionId
-    );
+  }) {
+    return this.http.post("/player/change-password", params, this.sessionId);
   }
 
   /**
    * Sign in a player
    */
-  async signIn(params: SignInParams): Promise<SignInResponse> {
+  async signIn(params: SignInParams) {
     return this.http.post("/player/signin/v2", params);
   }
 
@@ -150,7 +138,7 @@ export class PlayerClient extends BaseClient {
    *
    * If PersonId could not be parsed inte Age then the age property will have a value of -1
    */
-  async signInWithCode(params: SignInCodeParams): Promise<SignInCodeResponse> {
+  async signInWithCode(params: SignInCodeParams) {
     return this.http.post<SignInCodeResponse>("/player/signin/code", params);
   }
 
@@ -162,7 +150,7 @@ export class PlayerClient extends BaseClient {
    *
    * If PersonId could not be parsed inte Age then the age property will have a value of -1
    */
-  async signInWithSms(params: SignInSmsParams): Promise<SignInSmsResponse> {
+  async signInWithSms(params: SignInSmsParams) {
     return this.http.post("/player/signin/sms", params);
   }
 
@@ -171,8 +159,8 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async updateTermsAndConditions(version: string): Promise<void> {
-    return this.http.get<void>(
+  async updateTermsAndConditions(version: string) {
+    return this.http.get(
       `/player/update-player-tac`,
       { tacVersionAccepted: version },
       this.sessionId
@@ -182,8 +170,8 @@ export class PlayerClient extends BaseClient {
   /**
    * Invalidates the current session
    */
-  async signOut(): Promise<void> {
-    return this.http.post<void>("/player/signout", null, this.sessionId);
+  async signOut() {
+    return this.http.post("/player/signout", null, this.sessionId);
   }
 
   /**
@@ -193,7 +181,7 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async createSSOToken(params?: CreateSSOTokenParams): Promise<string> {
+  async createSSOToken(params?: CreateSSOTokenParams) {
     return this.http.post<string>(
       "/player/create-sso-token",
       params,
@@ -210,10 +198,8 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client ip
    */
-  async requestPasswordReset(
-    params: RequestPasswordResetParams
-  ): Promise<void> {
-    return this.http.post<void>(`/player/request-password-reset`, params);
+  async requestPasswordReset(params: RequestPasswordResetParams) {
+    return this.http.post(`/player/request-password-reset`, params);
   }
 
   /**
@@ -223,8 +209,8 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client ip
    */
-  async resetPassword(params: ResetPasswordParams): Promise<void> {
-    return this.http.post<void>(`/player/reset-password`, params);
+  async resetPassword(params: ResetPasswordParams) {
+    return this.http.post(`/player/reset-password`, params);
   }
 
   /**
@@ -232,9 +218,7 @@ export class PlayerClient extends BaseClient {
    * The code will be sent either by email or sms.
    * Parameter `UsernameOrEmail` can be either username, email or mobile number of the player.
    */
-  async requestActivationCode(
-    params: RequestActivationCodeParams
-  ): Promise<void> {
+  async requestActivationCode(params: RequestActivationCodeParams) {
     return this.http.post("/player/request-activation-code", params);
   }
 
@@ -243,9 +227,7 @@ export class PlayerClient extends BaseClient {
    * If device info provided, returns signin.
    * Parameter `UsernameOrEmail` can be either username, email or mobile number of the player.
    */
-  async activateAccount(
-    params: ActivateAccountParams
-  ): Promise<ActivateAccountResponse> {
+  async activateAccount(params: ActivateAccountParams) {
     return this.http.post<ActivateAccountResponse>("/player/activate", params);
   }
 
@@ -254,7 +236,7 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getPaymentStats(): Promise<PaymentStatsResponse> {
+  async getPaymentStats() {
     return this.http.get<PaymentStatsResponse>(
       "/player/payment-stats",
       null,
@@ -262,7 +244,7 @@ export class PlayerClient extends BaseClient {
     );
   }
 
-  async getLifetimeStats(): Promise<LifetimeStatsResponse> {
+  async getLifetimeStats() {
     return this.http.get<LifetimeStatsResponse>(
       "/player/lifetime-stats",
       null,
@@ -274,14 +256,14 @@ export class PlayerClient extends BaseClient {
    * Get a list of all possible opt in/outs with current player status
    * Requires session
    */
-  async getOptInOuts(): Promise<OptInOutResponse[]> {
+  async getOptInOuts() {
     return this.http.get("/player/opt-in-outs", null, this.sessionId);
   }
 
   /**
    * Get a list of all possible opt in/outs for a player
    */
-  async getOptOutIns(unsubToken: string): Promise<OptOutInResponse[]> {
+  async getOptOutIns(unsubToken: string) {
     return this.http.get("/player/opt-out-ins", { unsubToken });
   }
 
@@ -289,7 +271,7 @@ export class PlayerClient extends BaseClient {
    * Opt in player to pre-defined type
    * Requires session
    */
-  async optIn(params: OptInParams): Promise<void> {
+  async optIn(params: OptInParams) {
     return this.http.post("/player/opt-in", params, this.sessionId);
   }
 
@@ -297,7 +279,7 @@ export class PlayerClient extends BaseClient {
    * Opt out player from pre-defined type
    * Requires session
    */
-  async optOut(params: OptOutParams): Promise<void> {
+  async optOut(params: OptOutParams) {
     return this.http.post("/player/opt-out", params, this.sessionId);
   }
 
@@ -305,7 +287,7 @@ export class PlayerClient extends BaseClient {
    * If token is valid opt in the player for whats provided in the array and opt the player out for the rest.
    * Empty array opt the player out from all offers and newsletters.
    */
-  async optOutChoices(params: OptOutChoicesParams): Promise<void> {
+  async optOutChoices(params: OptOutChoicesParams) {
     return this.http.post("/player/opt-out-choices", params);
   }
 
@@ -314,7 +296,7 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async tournamentOptIn(params: TournamentOptInParams): Promise<void> {
+  async tournamentOptIn(params: TournamentOptInParams) {
     return this.http.post("/player/tournament-opt-in", params, this.sessionId);
   }
 
@@ -323,7 +305,7 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getPagesToDisplay(): Promise<LoginPage[]> {
+  async getPagesToDisplay() {
     return this.http.get<LoginPage[]>(
       "/player/display-pages",
       null,
@@ -338,8 +320,8 @@ export class PlayerClient extends BaseClient {
     jurisdiction: Jurisdiction,
     countryCode: string,
     mobile: string
-  ): Promise<void> {
-    return this.http.get<void>("/player/request-otp", {
+  ) {
+    return this.http.get("/player/request-otp", {
       jurisdiction,
       countryCode,
       mobile,

@@ -12,7 +12,7 @@ export class PlayerPropertiesClient extends BaseClient {
    *
    * Requires session
    */
-  async get(): Promise<PlayerProperty[]> {
+  async get() {
     return this.http.get("/player-properties", null, this.sessionId);
   }
 
@@ -21,7 +21,7 @@ export class PlayerPropertiesClient extends BaseClient {
    *
    * Requires session
    */
-  async set(params: SetPlayerPropertiesParams): Promise<PlayerProperty[]> {
+  async set(params: SetPlayerPropertiesParams) {
     return this.http.post<PlayerProperty[]>(
       "/player-properties",
       params,
@@ -32,7 +32,7 @@ export class PlayerPropertiesClient extends BaseClient {
   /**
    * Get specific property of a player
    */
-  async getByName(name: string): Promise<PlayerProperty> {
+  async getByName(name: string) {
     return this.http.get<PlayerProperty>(
       `/player-properties/${name}`,
       null,

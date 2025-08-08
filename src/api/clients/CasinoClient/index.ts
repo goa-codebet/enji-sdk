@@ -9,7 +9,7 @@ export class CasinoClient extends BaseClient {
   /**
    * Get a list of all active casino games
    */
-  async getAll(): Promise<CasinoGame[]> {
+  async getAll() {
     return this.http.get<CasinoGame[]>("/casino");
   }
 
@@ -17,7 +17,7 @@ export class CasinoClient extends BaseClient {
    * Gets all information that is required to launch the specific game
    *
    */
-  async getGameInfo(gameId: number): Promise<CasinoGameInfo> {
+  async getGameInfo(gameId: number) {
     return this.http.get<CasinoGameInfo>(
       `/casino/gameinfo/${gameId}`,
       null,
@@ -34,7 +34,7 @@ export class CasinoClient extends BaseClient {
     gameId: number,
     tableId?: number,
     setLinkedGames?: boolean
-  ): Promise<boolean> {
+  ) {
     const query = new URLSearchParams();
     if (tableId) {
       query.append("tableId", tableId.toString());
@@ -58,7 +58,7 @@ export class CasinoClient extends BaseClient {
     gameId: number,
     tableId?: number,
     removeLinkedGames?: boolean
-  ): Promise<boolean> {
+  ) {
     const query = new URLSearchParams();
     if (tableId) {
       query.append("tableId", tableId.toString());
@@ -78,7 +78,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async getFavorites(): Promise<CasinoGame[]> {
+  async getFavorites() {
     return this.http.get<CasinoGame[]>(
       "/casino/favorites",
       null,
@@ -95,7 +95,7 @@ export class CasinoClient extends BaseClient {
     gameId: number,
     tableId?: number,
     setLinkedGames?: boolean
-  ): Promise<void> {
+  ) {
     const query = new URLSearchParams({ gameId: gameId.toString() });
     if (tableId) {
       query.append("tableId", tableId.toString());
@@ -120,7 +120,7 @@ export class CasinoClient extends BaseClient {
     platform?: Platform;
     max?: number;
     offset?: number;
-  }): Promise<CasinoGame[]> {
+  }) {
     const query = new URLSearchParams();
     if (options.platform) {
       query.append("platform", options.platform);
@@ -145,7 +145,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createNetendSessionId(channel?: "mobg" | "bbg"): Promise<string> {
+  async createNetendSessionId(channel?: "mobg" | "bbg") {
     const query = new URLSearchParams();
     if (channel) {
       query.append("channel", channel);
@@ -163,7 +163,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createEndorphinaSessionId(externalGameId: string): Promise<string> {
+  async createEndorphinaSessionId(externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-endorphina-session-id?externalGameId=${externalGameId}`,
       null,
@@ -176,7 +176,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createGanapatiSessionId(externalGameId: string): Promise<string> {
+  async createGanapatiSessionId(externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-ganapati-session-id?externalGameId=${externalGameId}`,
       null,
@@ -189,7 +189,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createRedtigerSessionId(externalGameId: string): Promise<string> {
+  async createRedtigerSessionId(externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-redtiger-session-id?externalGameId=${externalGameId}`,
       null,

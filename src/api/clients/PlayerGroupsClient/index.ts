@@ -11,7 +11,7 @@ export class PlayerGroupsClient extends BaseClient {
    *
    * Requires session
    */
-  async getPlayerGroups(): Promise<string[]> {
+  async getPlayerGroups() {
     return this.http.get<string[]>("/player-groups", null, this.sessionId);
   }
 }

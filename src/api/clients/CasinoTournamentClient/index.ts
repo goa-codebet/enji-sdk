@@ -15,7 +15,7 @@ export class CasinoTournamentClient extends BaseClient {
     tableId?: string;
     orderBy?: string;
     sortDescending?: boolean;
-  }): Promise<TournamentInfo[]> {
+  }) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament",
       params || null,
@@ -31,7 +31,7 @@ export class CasinoTournamentClient extends BaseClient {
     TableId?: string;
     OrderBy?: string;
     SortDescending?: boolean;
-  }): Promise<TournamentInfo[]> {
+  }) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/active",
       params || null,
@@ -47,7 +47,7 @@ export class CasinoTournamentClient extends BaseClient {
     TableId?: string;
     OrderBy?: string;
     SortDescending?: boolean;
-  }): Promise<TournamentInfo[]> {
+  }) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/finished",
       params || null,
@@ -63,7 +63,7 @@ export class CasinoTournamentClient extends BaseClient {
     TableId?: string;
     OrderBy?: string;
     SortDescending?: boolean;
-  }): Promise<TournamentInfo[]> {
+  }) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/upcoming",
       params || null,
@@ -78,7 +78,7 @@ export class CasinoTournamentClient extends BaseClient {
     TournamentIdentifier?: string;
     Offset?: number;
     Limit?: number;
-  }): Promise<TournamentLeaderboard> {
+  }) {
     return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard",
       params,
@@ -93,7 +93,7 @@ export class CasinoTournamentClient extends BaseClient {
     tournamentIdentifier?: string;
     playerId?: number;
     limit?: number;
-  }): Promise<TournamentLeaderboard> {
+  }) {
     return this.http.get(
       "/casinotournament/leaderboard-relative",
       params,

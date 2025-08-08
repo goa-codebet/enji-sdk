@@ -1,6 +1,9 @@
 import { Http } from "@/api/Http";
 import { BaseClient } from "../BaseClient";
-import { CreateBetssonContextParams } from "./types";
+import {
+  CreateBetssonContextParams,
+  CreateBetssonContextResponse,
+} from "./types";
 
 export class SportsbookClient extends BaseClient {
   constructor(http: Http, sessionId: string | null = null) {
@@ -11,10 +14,8 @@ export class SportsbookClient extends BaseClient {
    * Create Betsson sportsbook context
    * Requires session
    */
-  async createBetssonContext(
-    params: CreateBetssonContextParams
-  ): Promise<unknown> {
-    return this.http.post(
+  async createBetssonContext(params: CreateBetssonContextParams) {
+    return this.http.post<CreateBetssonContextResponse>(
       "/sportsbook/create-betsson-context",
       params,
       this.sessionId

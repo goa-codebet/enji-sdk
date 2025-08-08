@@ -14,8 +14,8 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async uploadDocument(document: KycDocument): Promise<void> {
-    return this.http.post<void>("/kyc/upload", document, this.sessionId);
+  async uploadDocument(document: KycDocument) {
+    return this.http.post("/kyc/upload", document, this.sessionId);
   }
 
   /**
@@ -23,7 +23,7 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async getDocuments(): Promise<KycReport[]> {
+  async getDocuments() {
     return this.http.get<KycReport[]>("/kyc", null, this.sessionId);
   }
 
@@ -34,13 +34,7 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async addSourceOfWealthFormV2(
-    params: AddSourceOfWealthFormParams
-  ): Promise<void> {
-    return this.http.post<void>(
-      "/kyc/source-of-wealth/v2",
-      params,
-      this.sessionId
-    );
+  async addSourceOfWealthFormV2(params: AddSourceOfWealthFormParams) {
+    return this.http.post("/kyc/source-of-wealth/v2", params, this.sessionId);
   }
 }

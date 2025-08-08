@@ -11,7 +11,7 @@ export class BonusClient extends BaseClient {
    * Get a list of all bonuses (pending, active, expired, cleared)
    * Requires session
    */
-  async getAll(): Promise<BonusInstance[]> {
+  async getAll() {
     return this.http.get<BonusInstance[]>("/bonus", null, this.sessionId);
   }
 
@@ -22,7 +22,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getFreeSpins(): Promise<BonusInstance[]> {
+  async getFreeSpins() {
     return this.http.get<BonusInstance[]>(
       "/bonus/free-spins",
       null,
@@ -35,7 +35,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getMonetary(): Promise<BonusInstance[]> {
+  async getMonetary() {
     return this.http.get<BonusInstance[]>(
       "/bonus/monetary",
       null,
@@ -48,7 +48,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getPending(): Promise<PendingBonus[]> {
+  async getPending() {
     return this.http.get<PendingBonus[]>(
       "/bonus/pending",
       null,
@@ -61,7 +61,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async get(bonusId: number): Promise<BonusInstance> {
+  async get(bonusId: number) {
     return this.http.get<BonusInstance>(
       `/bonus/${bonusId}`,
       null,
@@ -74,7 +74,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async claim(bonusId: number): Promise<void> {
+  async claim(bonusId: number) {
     return this.http.post(`/bonus/${bonusId}/claim`, null, this.sessionId);
   }
 
@@ -83,7 +83,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async reject(bonusId: number): Promise<void> {
+  async reject(bonusId: number) {
     return this.http.post(`/bonus/${bonusId}/reject`, null, this.sessionId);
   }
 
@@ -94,7 +94,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async cancel(bonusId: number): Promise<void> {
+  async cancel(bonusId: number) {
     return this.http.post(`/bonus/${bonusId}/cancel`, null, this.sessionId);
   }
 
@@ -103,7 +103,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async preclaim(promoCode: string): Promise<number> {
+  async preclaim(promoCode: string) {
     return this.http.post<number>(
       `/bonus/preclaim/${promoCode}`,
       null,
@@ -118,7 +118,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async trigger(promoCode: string): Promise<number> {
+  async trigger(promoCode: string) {
     return this.http.post<number>(
       `/bonus/trigger/${promoCode}`,
       null,
@@ -133,7 +133,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getOffers(type: OfferType): Promise<BonusOffer[]> {
+  async getOffers(type: OfferType) {
     return this.http.get<BonusOffer[]>(
       "/bonus/offers",
       { type },

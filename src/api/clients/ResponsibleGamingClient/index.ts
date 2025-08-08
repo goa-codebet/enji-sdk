@@ -18,7 +18,7 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getSession(): Promise<SessionInfo> {
+  async getSession() {
     return this.http.get<SessionInfo>(
       "/responsiblegaming/session",
       null,
@@ -29,12 +29,8 @@ export class ResponsibleGamingClient extends BaseClient {
   /**
    * Requires session
    */
-  async panic(params: PanicParams): Promise<void> {
-    return this.http.post<void>(
-      "/responsiblegaming/panic",
-      params,
-      this.sessionId
-    );
+  async panic(params: PanicParams) {
+    return this.http.post("/responsiblegaming/panic", params, this.sessionId);
   }
 
   /**
@@ -43,8 +39,8 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addPsgiScore(params: AddPsgiScoreParams): Promise<void> {
-    return this.http.post<void>(
+  async addPsgiScore(params: AddPsgiScoreParams) {
+    return this.http.post(
       "/responsiblegaming/pgsi-score",
       params,
       this.sessionId
@@ -57,8 +53,8 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addSelfExclude(expiresIn: number): Promise<void> {
-    return this.http.post<void>(
+  async addSelfExclude(expiresIn: number) {
+    return this.http.post(
       `/responsiblegaming/self-exclude/${expiresIn}`,
       null,
       this.sessionId
@@ -71,8 +67,8 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addSelfBlock(expiresIn: number): Promise<void> {
-    return this.http.post<void>(
+  async addSelfBlock(expiresIn: number) {
+    return this.http.post(
       `/responsiblegaming/block/${expiresIn}`,
       null,
       this.sessionId
@@ -84,9 +80,9 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getRealityCheckData(): Promise<RealityCheckData> {
+  async getRealityCheckData() {
     return this.http.get<RealityCheckData>(
-      "/responsiblegaming/reality-check-data",
+      "/responsiblegaming/realitycheck-data",
       null,
       this.sessionId
     );
@@ -97,7 +93,7 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getProductBlocks(): Promise<ProductBlock[]> {
+  async getProductBlocks() {
     return this.http.get<ProductBlock[]>(
       "/responsiblegaming/product-blocks",
       null,

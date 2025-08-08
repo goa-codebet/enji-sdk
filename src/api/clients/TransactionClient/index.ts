@@ -19,7 +19,7 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getPayments(params?: GetPaymentsParams): Promise<PaymentTransaction[]> {
+  async getPayments(params?: GetPaymentsParams) {
     return this.http.get(
       "/transaction/payments",
       params || null,
@@ -32,9 +32,7 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getGameplayTransactions(
-    params?: GetGamePlayTransactionsParams
-  ): Promise<GameTransaction[]> {
+  async getGameplayTransactions(params?: GetGamePlayTransactionsParams) {
     return this.http.get(
       "/transaction/gameplay",
       params || null,
@@ -47,9 +45,7 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getSportsbookBets(
-    params?: GetSportsbookBetsParams
-  ): Promise<SportsbookBet[]> {
+  async getSportsbookBets(params?: GetSportsbookBetsParams) {
     return this.http.get(
       "/transaction/sportsbookbets",
       params || null,

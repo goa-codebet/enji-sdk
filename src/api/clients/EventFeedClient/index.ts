@@ -11,28 +11,28 @@ export class EventFeedClient extends BaseClient {
   /**
    * Get all jackpots
    */
-  async getJackpots(currency?: Currency): Promise<Jackpot[]> {
+  async getJackpots(currency?: Currency) {
     return this.http.get<Jackpot[]>("/event-feed/jackpots", { currency });
   }
 
   /**
    * Get list of top games
    */
-  async getTopGames(max: number): Promise<SkinGame[]> {
+  async getTopGames(max: number) {
     return this.http.get<SkinGame[]>(`/event-feed/top-games/${max}`);
   }
 
   /**
    * Get list of top games by total wager
    */
-  async getTopGamesByWager(max: number): Promise<SkinGame[]> {
+  async getTopGamesByWager(max: number) {
     return this.http.get<SkinGame[]>(`/event-feed/top-games-wager/${max}`);
   }
 
   /**
    * Get list of top games by unique wagering customers
    */
-  async getTopGamesByUWC(max: number): Promise<SkinGame[]> {
+  async getTopGamesByUWC(max: number) {
     return this.http.get<SkinGame[]>(`/event-feed/top-games-uwc/${max}`);
   }
 }

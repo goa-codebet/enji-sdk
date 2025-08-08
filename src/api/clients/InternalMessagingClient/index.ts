@@ -12,7 +12,7 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getAll(): Promise<InternalMessage[]> {
+  async getAll() {
     return this.http.get<InternalMessage[]>(
       "/internalmessages",
       null,
@@ -25,7 +25,7 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getByStatus(status: InternalMessageStatus): Promise<InternalMessage[]> {
+  async getByStatus(status: InternalMessageStatus) {
     return this.http.get<InternalMessage[]>(
       "/internalmessages/with-status",
       { status },
@@ -40,7 +40,7 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getById(messageId: number): Promise<InternalMessage> {
+  async getById(messageId: number) {
     return this.http.get<InternalMessage>(
       "/internalmessages/with-status",
       { messageId },
@@ -53,11 +53,8 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async markMessage(
-    MessageId: number,
-    Status: InternalMessageStatus
-  ): Promise<void> {
-    return this.http.post<void>(
+  async markMessage(MessageId: number, Status: InternalMessageStatus) {
+    return this.http.post(
       "/internalmessages/mark",
       { MessageId, Status },
       this.sessionId

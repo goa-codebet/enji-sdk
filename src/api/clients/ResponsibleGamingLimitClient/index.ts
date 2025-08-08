@@ -12,7 +12,7 @@ export class ResponsibleGamingLimitClient extends BaseClient {
    *
    * Requires session
    */
-  async getAll(): Promise<Limit[]> {
+  async getAll() {
     return this.http.get<Limit[]>(
       "/responsiblegaming/limit",
       null,
@@ -27,16 +27,12 @@ export class ResponsibleGamingLimitClient extends BaseClient {
    *
    * Requires session
    */
-  async add(limit: AddLimit): Promise<void> {
-    return this.http.post<void>(
-      "/responsiblegaming/limit/v2",
-      limit,
-      this.sessionId
-    );
+  async add(limit: AddLimit) {
+    return this.http.post("/responsiblegaming/limit/v2", limit, this.sessionId);
   }
 
-  async remove(id: number, pgsiScore?: number): Promise<void> {
-    return this.http.post<void>(
+  async remove(id: number, pgsiScore?: number) {
+    return this.http.post(
       `/responsiblegaming/limit/cancel/${id}${pgsiScore ? `?pgsiScore=${pgsiScore}` : ""}`,
       null,
       this.sessionId
