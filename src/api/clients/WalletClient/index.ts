@@ -18,7 +18,7 @@ export class WalletClient extends BaseClient {
    * Requires session
    */
   async getBalance(params?: GetBalanceParams) {
-    return this.http.get(`/wallet`, params, this.sessionId);
+    return this.http.get<BalanceSheet>(`/wallet`, params, this.sessionId);
   }
 
   /**
@@ -27,6 +27,10 @@ export class WalletClient extends BaseClient {
    * Requires session
    */
   async getAllBalances(params?: GetAllBalancesParams) {
-    return this.http.get("/wallets", params, this.sessionId);
+    return this.http.get<PerCurrencyBalanceSheet>(
+      "/wallets",
+      params,
+      this.sessionId
+    );
   }
 }

@@ -127,7 +127,7 @@ export class PlayerClient extends BaseClient {
    * Sign in a player
    */
   async signIn(params: SignInParams) {
-    return this.http.post("/player/signin/v2", params);
+    return this.http.post<SignInResponse>("/player/signin/v2", params);
   }
 
   /**
@@ -151,7 +151,7 @@ export class PlayerClient extends BaseClient {
    * If PersonId could not be parsed inte Age then the age property will have a value of -1
    */
   async signInWithSms(params: SignInSmsParams) {
-    return this.http.post("/player/signin/sms", params);
+    return this.http.post<SignInSmsResponse>("/player/signin/sms", params);
   }
 
   /**
@@ -257,14 +257,20 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async getOptInOuts() {
-    return this.http.get("/player/opt-in-outs", null, this.sessionId);
+    return this.http.get<OptInOutResponse>(
+      "/player/opt-in-outs",
+      null,
+      this.sessionId
+    );
   }
 
   /**
    * Get a list of all possible opt in/outs for a player
    */
   async getOptOutIns(unsubToken: string) {
-    return this.http.get("/player/opt-out-ins", { unsubToken });
+    return this.http.get<OptOutInResponse>("/player/opt-out-ins", {
+      unsubToken,
+    });
   }
 
   /**

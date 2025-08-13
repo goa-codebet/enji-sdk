@@ -20,7 +20,7 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getPayments(params?: GetPaymentsParams) {
-    return this.http.get(
+    return this.http.get<PaymentTransaction>(
       "/transaction/payments",
       params || null,
       this.sessionId
@@ -33,7 +33,7 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getGameplayTransactions(params?: GetGamePlayTransactionsParams) {
-    return this.http.get(
+    return this.http.get<GameTransaction>(
       "/transaction/gameplay",
       params || null,
       this.sessionId
@@ -46,7 +46,7 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getSportsbookBets(params?: GetSportsbookBetsParams) {
-    return this.http.get(
+    return this.http.get<SportsbookBet>(
       "/transaction/sportsbookbets",
       params || null,
       this.sessionId

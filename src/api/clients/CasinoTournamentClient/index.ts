@@ -94,7 +94,7 @@ export class CasinoTournamentClient extends BaseClient {
     playerId?: number;
     limit?: number;
   }) {
-    return this.http.get(
+    return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard-relative",
       params,
       this.sessionId
