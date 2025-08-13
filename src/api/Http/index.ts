@@ -1,4 +1,4 @@
-import { EnjiError, Result } from "../types";
+import { EnjiError } from "../EnjiError";
 
 export class Http {
   private host: string;
@@ -6,28 +6,30 @@ export class Http {
     this.host = host;
   }
 
-  private async handleResponse<T>(res: Response): Promise<Result<T>> {
+  private async handleResponse<T>(res: Response): Promise<T> {
     if (!res.ok) {
-      let error: EnjiError;
+      let errorData: Pick<EnjiError, "Code" | "Details"> & {
+        Message: string;
+      };
       if (
         res.headers.get("Content-Length") === "0" ||
         !res.headers.get("Content-Type")?.includes("application/json")
       ) {
-        error = {
+        errorData = {
           Code: "UnknownError",
           Message: "An unknown error occurred",
-          Details: null,
         };
       } else {
-        error = await res.json();
+        errorData = await res.json();
       }
-      return {
-        success: false,
-        error,
-      };
+      throw new EnjiError({
+        Code: errorData.Code,
+        Message: errorData.Message,
+        Details: errorData.Details,
+      });
     }
 
-    let data: T | null = null;
+    let data: T | undefined = undefined;
     if (
       res.headers.get("Content-Type")?.includes("application/json") &&
       res.headers.get("Content-Length") !== "0"
@@ -35,17 +37,14 @@ export class Http {
       data = await res.json();
     }
 
-    return {
-      success: true,
-      data: data as T,
-    };
+    return data as T;
   }
 
   async get<T = null>(
     path: string,
     data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null
-  ): Promise<Result<T>> {
+  ): Promise<T> {
     const url = new URL(path, this.host);
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
@@ -76,7 +75,7 @@ export class Http {
     path: string,
     data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null
-  ): Promise<Result<T>> {
+  ): Promise<T> {
     const url = new URL(path, this.host);
     const headers: Record<string, string> = {
       accept: "application/json",
