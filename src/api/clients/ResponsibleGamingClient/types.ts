@@ -22,7 +22,7 @@ export type ProductWagerWin = {
 };
 
 export type RealityCheckData = {
-  WagerWins?: ProductWagerWin[];
+  WagersWins?: ProductWagerWin[];
 };
 
 export type PlayerBlockStatus = "Active" | "Inactive" | "CoolDown";
