@@ -1,4 +1,4 @@
-import { EnjiError } from "../EnjiError";
+import { EnjiError } from "../../client/EnjiError";
 
 export class Http {
   private host: string;

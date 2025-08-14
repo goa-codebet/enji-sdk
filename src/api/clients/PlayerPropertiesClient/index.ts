@@ -13,7 +13,11 @@ export class PlayerPropertiesClient extends BaseClient {
    * Requires session
    */
   async get() {
-    return this.http.get("/player-properties", null, this.sessionId);
+    return this.http.get<PlayerProperty[]>(
+      "/player-properties",
+      null,
+      this.sessionId
+    );
   }
 
   /**
