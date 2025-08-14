@@ -37,7 +37,8 @@ export class EnjiClient extends BaseClient {
   private _transaction: TransactionClient;
   private _wallet: WalletClient;
 
-  constructor(http: Http, sessionId: string | null = null) {
+  constructor(host: string, sessionId: string | null = null) {
+    const http = new Http(host);
     super(http, sessionId);
     this._player = new PlayerClient(http, sessionId);
     this._responsibleGaming = new ResponsibleGamingClient(http, sessionId);
