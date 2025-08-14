@@ -1,8 +1,8 @@
 {
   "name": "enji-sdk",
-  "version": "1.0.0",
-  "author": "",
-  "description": "",
+  "version": "0.0.1",
+  "author": "Codebrain <tech@codebrain.se>",
+  "description": "An ECMAScript wrapper SDK around the Enji API",
   "scripts": {
     "build": "rm -rf dist && tsup",
     "release": "release-it",
