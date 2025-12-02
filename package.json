@@ -37,6 +37,9 @@
     "git": {
       "requireCleanWorkingDir": true,
       "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": false
     }
   }
 }
