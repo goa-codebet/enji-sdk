@@ -20,6 +20,15 @@
       "import": "./dist/client/index.mjs"
     }
   },
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": true,
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": false
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@types/node": "^24.1.0",
@@ -33,13 +42,7 @@
   "dependencies": {
     "server-only": "^0.0.1"
   },
-  "release-it": {
-    "git": {
-      "requireCleanWorkingDir": true,
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": false
-    }
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.53.3"
   }
 }
