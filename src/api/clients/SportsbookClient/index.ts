@@ -6,8 +6,8 @@ import {
 } from "./types";
 
 export class SportsbookClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -18,7 +18,7 @@ export class SportsbookClient extends BaseClient {
     return this.http.post<CreateBetssonContextResponse>(
       "/sportsbook/create-betsson-context",
       params,
-      this.sessionId
+      sessionId
     );
   }
 }

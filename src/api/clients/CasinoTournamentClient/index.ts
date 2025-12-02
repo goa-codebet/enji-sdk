@@ -3,101 +3,119 @@ import { BaseClient } from "../BaseClient";
 import { TournamentInfo, TournamentLeaderboard } from "./types";
 
 export class CasinoTournamentClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
    * Get all casino tournaments
    */
-  async getAll(params?: {
-    gameId?: number;
-    tableId?: string;
-    orderBy?: string;
-    sortDescending?: boolean;
-  }) {
+  async getAll(
+    sessionId: string,
+    params?: {
+      gameId?: number;
+      tableId?: string;
+      orderBy?: string;
+      sortDescending?: boolean;
+    }
+  ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
   /**
    * Get all active casino tournaments
    */
-  async getActive(params?: {
-    GameId?: number;
-    TableId?: string;
-    OrderBy?: string;
-    SortDescending?: boolean;
-  }) {
+  async getActive(
+    sessionId: string,
+    params?: {
+      GameId?: number;
+      TableId?: string;
+      OrderBy?: string;
+      SortDescending?: boolean;
+    }
+  ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/active",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
   /**
    * Get all finished casino tournaments
    */
-  async getFinished(params?: {
-    GameId?: number;
-    TableId?: string;
-    OrderBy?: string;
-    SortDescending?: boolean;
-  }) {
+  async getFinished(
+    sessionId: string,
+    params?: {
+      GameId?: number;
+      TableId?: string;
+      OrderBy?: string;
+      SortDescending?: boolean;
+    }
+  ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/finished",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
   /**
    * Get all upcoming casino tournaments
    */
-  async getUpcoming(params?: {
-    GameId?: number;
-    TableId?: string;
-    OrderBy?: string;
-    SortDescending?: boolean;
-  }) {
+  async getUpcoming(
+    sessionId: string,
+    params?: {
+      GameId?: number;
+      TableId?: string;
+      OrderBy?: string;
+      SortDescending?: boolean;
+    }
+  ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/upcoming",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
   /**
    * Get leaderboard for a tournament
    */
-  async getLeaderboard(params: {
-    TournamentIdentifier?: string;
-    Offset?: number;
-    Limit?: number;
-  }) {
+  async getLeaderboard(
+    sessionId: string,
+    params: {
+      TournamentIdentifier?: string;
+      Offset?: number;
+      Limit?: number;
+    }
+  ) {
     return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard",
       params,
-      this.sessionId
+      sessionId
     );
   }
 
   /**
    * Get all leaderbord relative
    */
-  async getLeaderboardRelative(params: {
-    tournamentIdentifier?: string;
-    playerId?: number;
-    limit?: number;
-  }) {
+  async getLeaderboardRelative(
+    sessionId: string,
+    params: {
+      tournamentIdentifier?: string;
+      playerId?: number;
+      limit?: number;
+    }
+  ) {
     return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard-relative",
       params,
-      this.sessionId
+      sessionId
     );
   }
 }

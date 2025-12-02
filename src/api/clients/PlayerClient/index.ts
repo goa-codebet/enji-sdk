@@ -33,8 +33,8 @@ import {
 } from "./types";
 
 export class PlayerClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -97,7 +97,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async updateInfo(params: UpdatePlayerInfoParams) {
-    return this.http.post("/player/update", params, this.sessionId);
+    return this.http.post("/player/update", params, sessionId);
   }
 
   /**
@@ -106,7 +106,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async getInfo() {
-    return this.http.get<PlayerInfo>("/player/user-info", null, this.sessionId);
+    return this.http.get<PlayerInfo>("/player/user-info", null, sessionId);
   }
 
   /**
@@ -120,7 +120,7 @@ export class PlayerClient extends BaseClient {
     CurrentPassword: string;
     NewPassword: string;
   }) {
-    return this.http.post("/player/change-password", params, this.sessionId);
+    return this.http.post("/player/change-password", params, sessionId);
   }
 
   /**
@@ -163,7 +163,7 @@ export class PlayerClient extends BaseClient {
     return this.http.get(
       `/player/update-player-tac`,
       { tacVersionAccepted: version },
-      this.sessionId
+      sessionId
     );
   }
 
@@ -171,7 +171,7 @@ export class PlayerClient extends BaseClient {
    * Invalidates the current session
    */
   async signOut() {
-    return this.http.post("/player/signout", null, this.sessionId);
+    return this.http.post("/player/signout", null, sessionId);
   }
 
   /**
@@ -185,7 +185,7 @@ export class PlayerClient extends BaseClient {
     return this.http.post<string>(
       "/player/create-sso-token",
       params,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -240,7 +240,7 @@ export class PlayerClient extends BaseClient {
     return this.http.get<PaymentStatsResponse>(
       "/player/payment-stats",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -248,7 +248,7 @@ export class PlayerClient extends BaseClient {
     return this.http.get<LifetimeStatsResponse>(
       "/player/lifetime-stats",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -260,7 +260,7 @@ export class PlayerClient extends BaseClient {
     return this.http.get<OptInOutResponse>(
       "/player/opt-in-outs",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -278,7 +278,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async optIn(params: OptInParams) {
-    return this.http.post("/player/opt-in", params, this.sessionId);
+    return this.http.post("/player/opt-in", params, sessionId);
   }
 
   /**
@@ -286,7 +286,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async optOut(params: OptOutParams) {
-    return this.http.post("/player/opt-out", params, this.sessionId);
+    return this.http.post("/player/opt-out", params, sessionId);
   }
 
   /**
@@ -303,7 +303,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async tournamentOptIn(params: TournamentOptInParams) {
-    return this.http.post("/player/tournament-opt-in", params, this.sessionId);
+    return this.http.post("/player/tournament-opt-in", params, sessionId);
   }
 
   /**
@@ -312,11 +312,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async getPagesToDisplay() {
-    return this.http.get<LoginPage[]>(
-      "/player/display-pages",
-      null,
-      this.sessionId
-    );
+    return this.http.get<LoginPage[]>("/player/display-pages", null, sessionId);
   }
 
   /**

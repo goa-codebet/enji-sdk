@@ -3,8 +3,8 @@ import { BaseClient } from "../BaseClient";
 import { InternalMessage, InternalMessageStatus } from "./types";
 
 export class InternalMessagingClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -16,7 +16,7 @@ export class InternalMessagingClient extends BaseClient {
     return this.http.get<InternalMessage[]>(
       "/internalmessages",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -29,7 +29,7 @@ export class InternalMessagingClient extends BaseClient {
     return this.http.get<InternalMessage[]>(
       "/internalmessages/with-status",
       { status },
-      this.sessionId
+      sessionId
     );
   }
 
@@ -44,7 +44,7 @@ export class InternalMessagingClient extends BaseClient {
     return this.http.get<InternalMessage>(
       "/internalmessages/with-status",
       { messageId },
-      this.sessionId
+      sessionId
     );
   }
 
@@ -57,7 +57,7 @@ export class InternalMessagingClient extends BaseClient {
     return this.http.post(
       "/internalmessages/mark",
       { MessageId, Status },
-      this.sessionId
+      sessionId
     );
   }
 }

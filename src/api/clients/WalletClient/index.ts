@@ -8,8 +8,8 @@ import {
 } from "./types";
 
 export class WalletClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -18,7 +18,7 @@ export class WalletClient extends BaseClient {
    * Requires session
    */
   async getBalance(params?: GetBalanceParams) {
-    return this.http.get<BalanceSheet>(`/wallet`, params, this.sessionId);
+    return this.http.get<BalanceSheet>(`/wallet`, params, sessionId);
   }
 
   /**
@@ -30,7 +30,7 @@ export class WalletClient extends BaseClient {
     return this.http.get<PerCurrencyBalanceSheet>(
       "/wallets",
       params,
-      this.sessionId
+      sessionId
     );
   }
 }

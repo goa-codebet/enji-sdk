@@ -3,8 +3,8 @@ import { BaseClient } from "../BaseClient";
 import { PlayerProperty, SetPlayerPropertiesParams } from "./types";
 
 export class PlayerPropertiesClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -16,7 +16,7 @@ export class PlayerPropertiesClient extends BaseClient {
     return this.http.get<PlayerProperty[]>(
       "/player-properties",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -29,7 +29,7 @@ export class PlayerPropertiesClient extends BaseClient {
     return this.http.post<PlayerProperty[]>(
       "/player-properties",
       params,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -40,7 +40,7 @@ export class PlayerPropertiesClient extends BaseClient {
     return this.http.get<PlayerProperty>(
       `/player-properties/${name}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 }

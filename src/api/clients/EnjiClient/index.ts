@@ -37,29 +37,26 @@ export class EnjiClient extends BaseClient {
   private _transaction: TransactionClient;
   private _wallet: WalletClient;
 
-  constructor(host: string, sessionId: string | null = null) {
+  constructor(host: string) {
     const http = new Http(host);
-    super(http, sessionId);
-    this._player = new PlayerClient(http, sessionId);
-    this._responsibleGaming = new ResponsibleGamingClient(http, sessionId);
-    this._bonus = new BonusClient(http, sessionId);
-    this._casino = new CasinoClient(http, sessionId);
-    this._casinoTournament = new CasinoTournamentClient(http, sessionId);
-    this._content = new ContentClient(http, sessionId);
-    this._currencies = new CurrenciesClient(http, sessionId);
-    this._eventFeed = new EventFeedClient(http, sessionId);
-    this._exchangeRates = new ExchangeRatesClient(http, sessionId);
-    this._internalMessaging = new InternalMessagingClient(http, sessionId);
-    this._kyc = new KycClient(http, sessionId);
-    this._playerGroups = new PlayerGroupsClient(http, sessionId);
-    this._playerProperties = new PlayerPropertiesClient(http, sessionId);
-    this._responsibleGamingLimit = new ResponsibleGamingLimitClient(
-      http,
-      sessionId
-    );
-    this._sportsbook = new SportsbookClient(http, sessionId);
-    this._transaction = new TransactionClient(http, sessionId);
-    this._wallet = new WalletClient(http, sessionId);
+    super(http);
+    this._player = new PlayerClient(http);
+    this._responsibleGaming = new ResponsibleGamingClient(http);
+    this._bonus = new BonusClient(http);
+    this._casino = new CasinoClient(http);
+    this._casinoTournament = new CasinoTournamentClient(http);
+    this._content = new ContentClient(http);
+    this._currencies = new CurrenciesClient(http);
+    this._eventFeed = new EventFeedClient(http);
+    this._exchangeRates = new ExchangeRatesClient(http);
+    this._internalMessaging = new InternalMessagingClient(http);
+    this._kyc = new KycClient(http);
+    this._playerGroups = new PlayerGroupsClient(http);
+    this._playerProperties = new PlayerPropertiesClient(http);
+    this._responsibleGamingLimit = new ResponsibleGamingLimitClient(http);
+    this._sportsbook = new SportsbookClient(http);
+    this._transaction = new TransactionClient(http);
+    this._wallet = new WalletClient(http);
   }
 
   get player() {

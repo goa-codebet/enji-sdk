@@ -8,8 +8,8 @@ import {
 } from "./types";
 
 export class ContentClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**

@@ -9,8 +9,8 @@ import {
 } from "./types";
 
 export class ResponsibleGamingClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -22,7 +22,7 @@ export class ResponsibleGamingClient extends BaseClient {
     return this.http.get<SessionInfo>(
       "/responsiblegaming/session",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -30,7 +30,7 @@ export class ResponsibleGamingClient extends BaseClient {
    * Requires session
    */
   async panic(params: PanicParams) {
-    return this.http.post("/responsiblegaming/panic", params, this.sessionId);
+    return this.http.post("/responsiblegaming/panic", params, sessionId);
   }
 
   /**
@@ -40,11 +40,7 @@ export class ResponsibleGamingClient extends BaseClient {
    * Requires session
    */
   async addPsgiScore(params: AddPsgiScoreParams) {
-    return this.http.post(
-      "/responsiblegaming/pgsi-score",
-      params,
-      this.sessionId
-    );
+    return this.http.post("/responsiblegaming/pgsi-score", params, sessionId);
   }
 
   /**
@@ -57,7 +53,7 @@ export class ResponsibleGamingClient extends BaseClient {
     return this.http.post(
       `/responsiblegaming/self-exclude/${expiresIn}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -71,7 +67,7 @@ export class ResponsibleGamingClient extends BaseClient {
     return this.http.post(
       `/responsiblegaming/block/${expiresIn}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -84,7 +80,7 @@ export class ResponsibleGamingClient extends BaseClient {
     return this.http.get<RealityCheckData>(
       "/responsiblegaming/realitycheck-data",
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -97,7 +93,7 @@ export class ResponsibleGamingClient extends BaseClient {
     return this.http.get<ProductBlock[]>(
       "/responsiblegaming/product-blocks",
       null,
-      this.sessionId
+      sessionId
     );
   }
 }

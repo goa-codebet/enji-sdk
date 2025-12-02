@@ -2,8 +2,8 @@ import { Http } from "@/api/Http";
 import { BaseClient } from "../BaseClient";
 import { CasinoGame, CasinoGameInfo, Platform } from "./types";
 export class CasinoClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -17,11 +17,11 @@ export class CasinoClient extends BaseClient {
    * Gets all information that is required to launch the specific game
    *
    */
-  async getGameInfo(gameId: number) {
+  async getGameInfo(sessionId: string, gameId: number) {
     return this.http.get<CasinoGameInfo>(
       `/casino/gameinfo/${gameId}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -31,6 +31,7 @@ export class CasinoClient extends BaseClient {
    * Requires session
    */
   async setFavorite(
+    sessionId: string,
     gameId: number,
     tableId?: number,
     setLinkedGames?: boolean
@@ -45,7 +46,7 @@ export class CasinoClient extends BaseClient {
     return this.http.post<boolean>(
       `/casino/set-favorite/${gameId}?${query.toString()}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -55,6 +56,7 @@ export class CasinoClient extends BaseClient {
    * Requires session
    */
   async removeFavorite(
+    sessionId: string,
     gameId: number,
     tableId?: number,
     removeLinkedGames?: boolean
@@ -69,7 +71,7 @@ export class CasinoClient extends BaseClient {
     return this.http.post<boolean>(
       `/casino/remove-favorite/${gameId}?${query.toString()}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -78,12 +80,8 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async getFavorites() {
-    return this.http.get<CasinoGame[]>(
-      "/casino/favorites",
-      null,
-      this.sessionId
-    );
+  async getFavorites(sessionId: string) {
+    return this.http.get<CasinoGame[]>("/casino/favorites", null, sessionId);
   }
 
   /**
@@ -92,6 +90,7 @@ export class CasinoClient extends BaseClient {
    * Requires session
    */
   async setLastPlayed(
+    sessionId: string,
     gameId: number,
     tableId?: number,
     setLinkedGames?: boolean
@@ -107,7 +106,7 @@ export class CasinoClient extends BaseClient {
     return this.http.post(
       `/casino/set-last-played-game?${query.toString()}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -116,11 +115,14 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async getLastPlayed(options: {
-    platform?: Platform;
-    max?: number;
-    offset?: number;
-  }) {
+  async getLastPlayed(
+    sessionId: string,
+    options: {
+      platform?: Platform;
+      max?: number;
+      offset?: number;
+    }
+  ) {
     const query = new URLSearchParams();
     if (options.platform) {
       query.append("platform", options.platform);
@@ -134,7 +136,7 @@ export class CasinoClient extends BaseClient {
     return this.http.get<CasinoGame[]>(
       `/casino/last-played-games?${query.toString()}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -145,7 +147,7 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createNetendSessionId(channel?: "mobg" | "bbg") {
+  async createNetendSessionId(sessionId: string, channel?: "mobg" | "bbg") {
     const query = new URLSearchParams();
     if (channel) {
       query.append("channel", channel);
@@ -154,7 +156,7 @@ export class CasinoClient extends BaseClient {
     return this.http.get<string>(
       `/casino/create-netent-session-id?${query.toString()}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -163,11 +165,11 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createEndorphinaSessionId(externalGameId: string) {
+  async createEndorphinaSessionId(sessionId: string, externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-endorphina-session-id?externalGameId=${externalGameId}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -176,11 +178,11 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createGanapatiSessionId(externalGameId: string) {
+  async createGanapatiSessionId(sessionId: string, externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-ganapati-session-id?externalGameId=${externalGameId}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -189,11 +191,11 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async createRedtigerSessionId(externalGameId: string) {
+  async createRedtigerSessionId(sessionId: string, externalGameId: string) {
     return this.http.get<string>(
       `/casino/create-redtiger-session-id?externalGameId=${externalGameId}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 }

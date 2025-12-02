@@ -3,8 +3,8 @@ import { BaseClient } from "../BaseClient";
 import { ExchangeRates } from "./types";
 
 export class ExchangeRatesClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -13,6 +13,6 @@ export class ExchangeRatesClient extends BaseClient {
    * Example: { "USD": 1.1747, "EUR": 1 }
    */
   async getAll() {
-    return this.http.get<ExchangeRates>("/exchange-rates");
+    return this.http.get<ExchangeRates>("/exchange-rates", null, sessionId);
   }
 }

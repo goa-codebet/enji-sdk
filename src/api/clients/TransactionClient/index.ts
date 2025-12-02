@@ -10,8 +10,8 @@ import {
 } from "./types";
 
 export class TransactionClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -23,7 +23,7 @@ export class TransactionClient extends BaseClient {
     return this.http.get<PaymentTransaction>(
       "/transaction/payments",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -36,7 +36,7 @@ export class TransactionClient extends BaseClient {
     return this.http.get<GameTransaction>(
       "/transaction/gameplay",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -49,7 +49,7 @@ export class TransactionClient extends BaseClient {
     return this.http.get<SportsbookBet>(
       "/transaction/sportsbookbets",
       params || null,
-      this.sessionId
+      sessionId
     );
   }
 }

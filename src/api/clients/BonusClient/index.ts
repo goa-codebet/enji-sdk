@@ -3,16 +3,16 @@ import { BaseClient } from "../BaseClient";
 import { BonusInstance, BonusOffer, OfferType, PendingBonus } from "./types";
 
 export class BonusClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
    * Get a list of all bonuses (pending, active, expired, cleared)
    * Requires session
    */
-  async getAll() {
-    return this.http.get<BonusInstance[]>("/bonus", null, this.sessionId);
+  async getAll(sessionId: string) {
+    return this.http.get<BonusInstance[]>("/bonus", null, sessionId);
   }
 
   /**
@@ -22,12 +22,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getFreeSpins() {
-    return this.http.get<BonusInstance[]>(
-      "/bonus/free-spins",
-      null,
-      this.sessionId
-    );
+  async getFreeSpins(sessionId: string) {
+    return this.http.get<BonusInstance[]>("/bonus/free-spins", null, sessionId);
   }
 
   /**
@@ -35,12 +31,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getMonetary() {
-    return this.http.get<BonusInstance[]>(
-      "/bonus/monetary",
-      null,
-      this.sessionId
-    );
+  async getMonetary(sessionId: string) {
+    return this.http.get<BonusInstance[]>("/bonus/monetary", null, sessionId);
   }
 
   /**
@@ -48,12 +40,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getPending() {
-    return this.http.get<PendingBonus[]>(
-      "/bonus/pending",
-      null,
-      this.sessionId
-    );
+  async getPending(sessionId: string) {
+    return this.http.get<PendingBonus[]>("/bonus/pending", null, sessionId);
   }
 
   /**
@@ -61,12 +49,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async get(bonusId: number) {
-    return this.http.get<BonusInstance>(
-      `/bonus/${bonusId}`,
-      null,
-      this.sessionId
-    );
+  async get(sessionId: string, bonusId: number) {
+    return this.http.get<BonusInstance>(`/bonus/${bonusId}`, null, sessionId);
   }
 
   /**
@@ -74,8 +58,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async claim(bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/claim`, null, this.sessionId);
+  async claim(sessionId: string, bonusId: number) {
+    return this.http.post(`/bonus/${bonusId}/claim`, null, sessionId);
   }
 
   /**
@@ -83,8 +67,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async reject(bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/reject`, null, this.sessionId);
+  async reject(sessionId: string, bonusId: number) {
+    return this.http.post(`/bonus/${bonusId}/reject`, null, sessionId);
   }
 
   /**
@@ -94,8 +78,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async cancel(bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/cancel`, null, this.sessionId);
+  async cancel(sessionId: string, bonusId: number) {
+    return this.http.post(`/bonus/${bonusId}/cancel`, null, sessionId);
   }
 
   /**
@@ -103,11 +87,11 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async preclaim(promoCode: string) {
+  async preclaim(sessionId: string, promoCode: string) {
     return this.http.post<number>(
       `/bonus/preclaim/${promoCode}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -118,11 +102,11 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async trigger(promoCode: string) {
+  async trigger(sessionId: string, promoCode: string) {
     return this.http.post<number>(
       `/bonus/trigger/${promoCode}`,
       null,
-      this.sessionId
+      sessionId
     );
   }
 
@@ -133,11 +117,7 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getOffers(type: OfferType) {
-    return this.http.get<BonusOffer[]>(
-      "/bonus/offers",
-      { type },
-      this.sessionId
-    );
+  async getOffers(sessionId: string, type: OfferType) {
+    return this.http.get<BonusOffer[]>("/bonus/offers", { type }, sessionId);
   }
 }
