@@ -32,5 +32,11 @@
   },
   "dependencies": {
     "server-only": "^0.0.1"
+  },
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": true,
+      "tagName": "v${version}"
+    }
   }
 }
