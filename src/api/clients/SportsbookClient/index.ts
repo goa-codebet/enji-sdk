@@ -16,8 +16,8 @@ export class SportsbookClient extends BaseClient {
    * Requires session
    */
   async createBetssonContext(
-    params: CreateBetssonContextParams,
     sessionId: string,
+    params: CreateBetssonContextParams,
     config?: EnjiRequestConfig
   ) {
     return this.http.post<CreateBetssonContextResponse>(

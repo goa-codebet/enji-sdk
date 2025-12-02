@@ -115,9 +115,16 @@ export class PlayerClient extends BaseClient {
   /**
    * Validate phone number
    */
-  async validatePhone(phoneNumber: string, jurisdiction: Jurisdiction) {
-    const params: Record<string, unknown> = { phoneNumber, jurisdiction };
-    return this.http.get<boolean>("/player/validate-phone", params);
+  async validatePhone(
+    params: { phoneNumber: string; jurisdiction: Jurisdiction },
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.get<boolean>(
+      "/player/validate-phone",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -363,10 +370,15 @@ export class PlayerClient extends BaseClient {
   /**
    * Get a list of all possible opt in/outs for a player
    */
-  async getOptOutIns(unsubToken: string) {
-    return this.http.get<OptOutInResponse>("/player/opt-out-ins", {
-      unsubToken,
-    });
+  async getOptOutIns(unsubToken: string, config?: EnjiRequestConfig) {
+    return this.http.get<OptOutInResponse>(
+      "/player/opt-out-ins",
+      {
+        unsubToken,
+      },
+      null,
+      config
+    );
   }
 
   /**

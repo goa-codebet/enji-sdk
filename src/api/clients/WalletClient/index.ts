@@ -19,8 +19,8 @@ export class WalletClient extends BaseClient {
    * Requires session
    */
   async getBalance(
+    sessionId: string,
     params?: GetBalanceParams,
-    sessionId?: string,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<BalanceSheet>(`/wallet`, params, sessionId, config);
@@ -32,8 +32,8 @@ export class WalletClient extends BaseClient {
    * Requires session
    */
   async getAllBalances(
+    sessionId: string,
     params?: GetAllBalancesParams,
-    sessionId?: string,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<PerCurrencyBalanceSheet>(

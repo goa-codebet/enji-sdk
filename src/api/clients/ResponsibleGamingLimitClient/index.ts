@@ -40,12 +40,11 @@ export class ResponsibleGamingLimitClient extends BaseClient {
 
   async remove(
     sessionId: string,
-    id: number,
-    pgsiScore?: number,
+    options: { id: number; pgsiScore?: number },
     config?: EnjiRequestConfig
   ) {
     return this.http.post(
-      `/responsiblegaming/limit/cancel/${id}${pgsiScore ? `?pgsiScore=${pgsiScore}` : ""}`,
+      `/responsiblegaming/limit/cancel/${options.id}${options.pgsiScore ? `?pgsiScore=${options.pgsiScore}` : ""}`,
       null,
       sessionId,
       config

@@ -28,8 +28,8 @@ export class PlayerPropertiesClient extends BaseClient {
    * Requires session
    */
   async set(
-    params: SetPlayerPropertiesParams,
     sessionId: string,
+    params: SetPlayerPropertiesParams,
     config?: EnjiRequestConfig
   ) {
     return this.http.post<PlayerProperty[]>(
@@ -43,7 +43,7 @@ export class PlayerPropertiesClient extends BaseClient {
   /**
    * Get specific property of a player
    */
-  async getByName(name: string, sessionId: string, config?: EnjiRequestConfig) {
+  async getByName(sessionId: string, name: string, config?: EnjiRequestConfig) {
     return this.http.get<PlayerProperty>(
       `/player-properties/${name}`,
       null,

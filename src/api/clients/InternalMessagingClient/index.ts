@@ -28,8 +28,8 @@ export class InternalMessagingClient extends BaseClient {
    * Requires session
    */
   async getByStatus(
-    status: InternalMessageStatus,
     sessionId: string,
+    status: InternalMessageStatus,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<InternalMessage[]>(
@@ -48,8 +48,8 @@ export class InternalMessagingClient extends BaseClient {
    * Requires session
    */
   async getById(
-    messageId: number,
     sessionId: string,
+    messageId: number,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<InternalMessage>(
@@ -66,16 +66,13 @@ export class InternalMessagingClient extends BaseClient {
    * Requires session
    */
   async markMessage(
-    MessageId: number,
-    Status: InternalMessageStatus,
     sessionId: string,
+    params: {
+      MessageId: number;
+      Status: InternalMessageStatus;
+    },
     config?: EnjiRequestConfig
   ) {
-    return this.http.post(
-      "/internalmessages/mark",
-      { MessageId, Status },
-      sessionId,
-      config
-    );
+    return this.http.post("/internalmessages/mark", params, sessionId, config);
   }
 }

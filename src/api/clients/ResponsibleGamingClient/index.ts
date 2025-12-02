@@ -70,8 +70,8 @@ export class ResponsibleGamingClient extends BaseClient {
    * Requires session
    */
   async addSelfExclude(
-    expiresIn: number,
     sessionId: string,
+    expiresIn: number,
     config?: EnjiRequestConfig
   ) {
     return this.http.post(
@@ -89,8 +89,8 @@ export class ResponsibleGamingClient extends BaseClient {
    * Requires session
    */
   async addSelfBlock(
-    expiresIn: number,
     sessionId: string,
+    expiresIn: number,
     config?: EnjiRequestConfig
   ) {
     return this.http.post(

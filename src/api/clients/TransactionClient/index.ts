@@ -21,8 +21,8 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getPayments(
+    sessionId: string,
     params?: GetPaymentsParams,
-    sessionId?: string,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<PaymentTransaction>(
@@ -39,8 +39,8 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getGameplayTransactions(
+    sessionId: string,
     params?: GetGamePlayTransactionsParams,
-    sessionId?: string,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<GameTransaction>(
@@ -57,8 +57,8 @@ export class TransactionClient extends BaseClient {
    * Requires session
    */
   async getSportsbookBets(
+    sessionId: string,
     params?: GetSportsbookBetsParams,
-    sessionId?: string,
     config?: EnjiRequestConfig
   ) {
     return this.http.get<SportsbookBet>(

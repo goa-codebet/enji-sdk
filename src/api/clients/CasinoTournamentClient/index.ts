@@ -101,12 +101,14 @@ export class CasinoTournamentClient extends BaseClient {
       TournamentIdentifier?: string;
       Offset?: number;
       Limit?: number;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -119,12 +121,14 @@ export class CasinoTournamentClient extends BaseClient {
       tournamentIdentifier?: string;
       playerId?: number;
       limit?: number;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentLeaderboard>(
       "/casinotournament/leaderboard-relative",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 }

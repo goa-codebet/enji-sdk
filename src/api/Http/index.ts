@@ -63,9 +63,7 @@ export class Http {
     if (sessionId) {
       headers["X-Player-Session-Id"] = sessionId;
     }
-    // Merge config headers, giving precedence to config
     const mergedHeaders = { ...headers, ...(config?.headers || {}) };
-    // Build fetch options, omitting body/method from config
     const { next, ...restConfig } = config || {};
     const fetchOptions: RequestInit & {
       next?: { revalidate?: number | false };
@@ -95,7 +93,6 @@ export class Http {
     if (data) {
       headers["content-type"] = "application/json";
     }
-    // Merge config headers, giving precedence to config
     const mergedHeaders = { ...headers, ...(config?.headers || {}) };
     const { next, ...restConfig } = config || {};
     const fetchOptions: RequestInit & {
