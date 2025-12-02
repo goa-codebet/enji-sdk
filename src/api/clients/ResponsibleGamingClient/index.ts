@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import {
   AddPsgiScoreParams,
@@ -18,19 +19,29 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getSession() {
+  async getSession(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<SessionInfo>(
       "/responsiblegaming/session",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
   /**
    * Requires session
    */
-  async panic(params: PanicParams) {
-    return this.http.post("/responsiblegaming/panic", params, sessionId);
+  async panic(
+    params: PanicParams,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/responsiblegaming/panic",
+      params,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -39,8 +50,17 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addPsgiScore(params: AddPsgiScoreParams) {
-    return this.http.post("/responsiblegaming/pgsi-score", params, sessionId);
+  async addPsgiScore(
+    params: AddPsgiScoreParams,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/responsiblegaming/pgsi-score",
+      params,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -49,11 +69,16 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addSelfExclude(expiresIn: number) {
+  async addSelfExclude(
+    expiresIn: number,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post(
       `/responsiblegaming/self-exclude/${expiresIn}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -63,11 +88,16 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async addSelfBlock(expiresIn: number) {
+  async addSelfBlock(
+    expiresIn: number,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post(
       `/responsiblegaming/block/${expiresIn}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -76,11 +106,12 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getRealityCheckData() {
+  async getRealityCheckData(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<RealityCheckData>(
       "/responsiblegaming/realitycheck-data",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -89,11 +120,12 @@ export class ResponsibleGamingClient extends BaseClient {
    *
    * Requires session
    */
-  async getProductBlocks() {
+  async getProductBlocks(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<ProductBlock[]>(
       "/responsiblegaming/product-blocks",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 }

@@ -1,4 +1,5 @@
 import { EnjiError } from "../../client/EnjiError";
+import type { EnjiRequestConfig } from "./types";
 
 export class Http {
   private host: string;
@@ -43,7 +44,8 @@ export class Http {
   async get<T = null>(
     path: string,
     data: Record<string, unknown> | object | null = null,
-    sessionId: string | null = null
+    sessionId: string | null = null,
+    config?: EnjiRequestConfig
   ): Promise<T> {
     const url = new URL(path, this.host);
     if (data) {
@@ -58,42 +60,54 @@ export class Http {
       accept: "application/json",
       "content-type": "application/json",
     };
-
     if (sessionId) {
       headers["X-Player-Session-Id"] = sessionId;
     }
-
-    const res = await fetch(url, {
+    // Merge config headers, giving precedence to config
+    const mergedHeaders = { ...headers, ...(config?.headers || {}) };
+    // Build fetch options, omitting body/method from config
+    const { next, ...restConfig } = config || {};
+    const fetchOptions: RequestInit & {
+      next?: { revalidate?: number | false };
+    } = {
+      ...restConfig,
       method: "GET",
-      headers,
-    });
-
+      headers: mergedHeaders,
+      ...(next ? { next } : {}),
+    };
+    const res = await fetch(url, fetchOptions);
     return this.handleResponse<T>(res);
   }
 
   async post<T = null>(
     path: string,
     data: Record<string, unknown> | object | null = null,
-    sessionId: string | null = null
+    sessionId: string | null = null,
+    config?: EnjiRequestConfig
   ): Promise<T> {
     const url = new URL(path, this.host);
     const headers: Record<string, string> = {
       accept: "application/json",
     };
-
     if (sessionId) {
       headers["X-Player-Session-Id"] = sessionId;
     }
-
     if (data) {
       headers["content-type"] = "application/json";
     }
-    const res = await fetch(url, {
+    // Merge config headers, giving precedence to config
+    const mergedHeaders = { ...headers, ...(config?.headers || {}) };
+    const { next, ...restConfig } = config || {};
+    const fetchOptions: RequestInit & {
+      next?: { revalidate?: number | false };
+    } = {
+      ...restConfig,
       method: "POST",
-      headers,
+      headers: mergedHeaders,
       body: data ? JSON.stringify(data) : null,
-    });
-
+      ...(next ? { next } : {}),
+    };
+    const res = await fetch(url, fetchOptions);
     return this.handleResponse<T>(res);
   }
 }

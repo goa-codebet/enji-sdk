@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import {
   BalanceSheet,
@@ -17,8 +18,12 @@ export class WalletClient extends BaseClient {
    *
    * Requires session
    */
-  async getBalance(params?: GetBalanceParams) {
-    return this.http.get<BalanceSheet>(`/wallet`, params, sessionId);
+  async getBalance(
+    params?: GetBalanceParams,
+    sessionId?: string,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.get<BalanceSheet>(`/wallet`, params, sessionId, config);
   }
 
   /**
@@ -26,11 +31,16 @@ export class WalletClient extends BaseClient {
    *
    * Requires session
    */
-  async getAllBalances(params?: GetAllBalancesParams) {
+  async getAllBalances(
+    params?: GetAllBalancesParams,
+    sessionId?: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<PerCurrencyBalanceSheet>(
       "/wallets",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 }

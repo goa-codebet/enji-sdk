@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { Jurisdiction, LoginPage } from "@/api/types";
 import {
@@ -42,22 +43,37 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client IP
    */
-  async signUp(params: SignUpParams) {
-    return this.http.post<SignUpResponse>("/player/signup/v2", params);
+  async signUp(params: SignUpParams, config?: EnjiRequestConfig) {
+    return this.http.post<SignUpResponse>(
+      "/player/signup/v2",
+      params,
+      null,
+      config
+    );
   }
 
   /**
    * Sign up using verification code
    */
-  async signUpWithCode(params: SignUpCodeParams) {
-    return this.http.post<SignUpCodeResponse>("/player/signup/code", params);
+  async signUpWithCode(params: SignUpCodeParams, config?: EnjiRequestConfig) {
+    return this.http.post<SignUpCodeResponse>(
+      "/player/signup/code",
+      params,
+      null,
+      config
+    );
   }
 
   /**
    * Sign up using JWT token
    */
-  async signUpWithToken(params: SignUpTokenparams) {
-    return this.http.post<SignUpTokenResponse>("/player/signup/token", params);
+  async signUpWithToken(params: SignUpTokenparams, config?: EnjiRequestConfig) {
+    return this.http.post<SignUpTokenResponse>(
+      "/player/signup/token",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -66,19 +82,34 @@ export class PlayerClient extends BaseClient {
   async validateEmail(
     email: string,
     jurisdiction: Jurisdiction,
-    isBouncedCheck?: boolean
+    isBouncedCheck?: boolean,
+    config?: EnjiRequestConfig
   ) {
     const params: Record<string, unknown> = { email, jurisdiction };
     if (isBouncedCheck) params.isBouncedCheck = isBouncedCheck;
-    return this.http.get<boolean>("/player/validate-email", params);
+    return this.http.get<boolean>(
+      "/player/validate-email",
+      params,
+      null,
+      config
+    );
   }
 
   /**
    * Validate if username is available for registration
    */
-  async validateUsername(username: string, jurisdiction: Jurisdiction) {
+  async validateUsername(
+    username: string,
+    jurisdiction: Jurisdiction,
+    config?: EnjiRequestConfig
+  ) {
     const params: Record<string, unknown> = { username, jurisdiction };
-    return this.http.get<boolean>("/player/validate-username", params);
+    return this.http.get<boolean>(
+      "/player/validate-username",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -96,8 +127,12 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async updateInfo(params: UpdatePlayerInfoParams) {
-    return this.http.post("/player/update", params, sessionId);
+  async updateInfo(
+    sessionId: string,
+    params: UpdatePlayerInfoParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post("/player/update", params, sessionId, config);
   }
 
   /**
@@ -105,8 +140,13 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getInfo() {
-    return this.http.get<PlayerInfo>("/player/user-info", null, sessionId);
+  async getInfo(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<PlayerInfo>(
+      "/player/user-info",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -116,18 +156,27 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async changePassword(params: {
-    CurrentPassword: string;
-    NewPassword: string;
-  }) {
-    return this.http.post("/player/change-password", params, sessionId);
+  async changePassword(
+    sessionId: string,
+    params: {
+      CurrentPassword: string;
+      NewPassword: string;
+    },
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post("/player/change-password", params, sessionId, config);
   }
 
   /**
    * Sign in a player
    */
-  async signIn(params: SignInParams) {
-    return this.http.post<SignInResponse>("/player/signin/v2", params);
+  async signIn(params: SignInParams, config?: EnjiRequestConfig) {
+    return this.http.post<SignInResponse>(
+      "/player/signin/v2",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -138,8 +187,13 @@ export class PlayerClient extends BaseClient {
    *
    * If PersonId could not be parsed inte Age then the age property will have a value of -1
    */
-  async signInWithCode(params: SignInCodeParams) {
-    return this.http.post<SignInCodeResponse>("/player/signin/code", params);
+  async signInWithCode(params: SignInCodeParams, config?: EnjiRequestConfig) {
+    return this.http.post<SignInCodeResponse>(
+      "/player/signin/code",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -150,8 +204,13 @@ export class PlayerClient extends BaseClient {
    *
    * If PersonId could not be parsed inte Age then the age property will have a value of -1
    */
-  async signInWithSms(params: SignInSmsParams) {
-    return this.http.post<SignInSmsResponse>("/player/signin/sms", params);
+  async signInWithSms(params: SignInSmsParams, config?: EnjiRequestConfig) {
+    return this.http.post<SignInSmsResponse>(
+      "/player/signin/sms",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -159,19 +218,24 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async updateTermsAndConditions(version: string) {
+  async updateTermsAndConditions(
+    sessionId: string,
+    version: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get(
       `/player/update-player-tac`,
       { tacVersionAccepted: version },
-      sessionId
+      sessionId,
+      config
     );
   }
 
   /**
    * Invalidates the current session
    */
-  async signOut() {
-    return this.http.post("/player/signout", null, sessionId);
+  async signOut(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.post("/player/signout", null, sessionId, config);
   }
 
   /**
@@ -181,11 +245,16 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async createSSOToken(params?: CreateSSOTokenParams) {
+  async createSSOToken(
+    sessionId: string,
+    params?: CreateSSOTokenParams,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post<string>(
       "/player/create-sso-token",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -198,8 +267,16 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client ip
    */
-  async requestPasswordReset(params: RequestPasswordResetParams) {
-    return this.http.post(`/player/request-password-reset`, params);
+  async requestPasswordReset(
+    params: RequestPasswordResetParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      `/player/request-password-reset`,
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -209,8 +286,8 @@ export class PlayerClient extends BaseClient {
    *
    * Requires client ip
    */
-  async resetPassword(params: ResetPasswordParams) {
-    return this.http.post(`/player/reset-password`, params);
+  async resetPassword(params: ResetPasswordParams, config?: EnjiRequestConfig) {
+    return this.http.post(`/player/reset-password`, params, null, config);
   }
 
   /**
@@ -218,8 +295,16 @@ export class PlayerClient extends BaseClient {
    * The code will be sent either by email or sms.
    * Parameter `UsernameOrEmail` can be either username, email or mobile number of the player.
    */
-  async requestActivationCode(params: RequestActivationCodeParams) {
-    return this.http.post("/player/request-activation-code", params);
+  async requestActivationCode(
+    params: RequestActivationCodeParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/player/request-activation-code",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -227,8 +312,16 @@ export class PlayerClient extends BaseClient {
    * If device info provided, returns signin.
    * Parameter `UsernameOrEmail` can be either username, email or mobile number of the player.
    */
-  async activateAccount(params: ActivateAccountParams) {
-    return this.http.post<ActivateAccountResponse>("/player/activate", params);
+  async activateAccount(
+    params: ActivateAccountParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post<ActivateAccountResponse>(
+      "/player/activate",
+      params,
+      null,
+      config
+    );
   }
 
   /**
@@ -236,19 +329,21 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getPaymentStats() {
+  async getPaymentStats(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<PaymentStatsResponse>(
       "/player/payment-stats",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
-  async getLifetimeStats() {
+  async getLifetimeStats(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<LifetimeStatsResponse>(
       "/player/lifetime-stats",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -256,11 +351,12 @@ export class PlayerClient extends BaseClient {
    * Get a list of all possible opt in/outs with current player status
    * Requires session
    */
-  async getOptInOuts() {
+  async getOptInOuts(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<OptInOutResponse>(
       "/player/opt-in-outs",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -277,24 +373,32 @@ export class PlayerClient extends BaseClient {
    * Opt in player to pre-defined type
    * Requires session
    */
-  async optIn(params: OptInParams) {
-    return this.http.post("/player/opt-in", params, sessionId);
+  async optIn(
+    sessionId: string,
+    params: OptInParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post("/player/opt-in", params, sessionId, config);
   }
 
   /**
    * Opt out player from pre-defined type
    * Requires session
    */
-  async optOut(params: OptOutParams) {
-    return this.http.post("/player/opt-out", params, sessionId);
+  async optOut(
+    sessionId: string,
+    params: OptOutParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post("/player/opt-out", params, sessionId, config);
   }
 
   /**
    * If token is valid opt in the player for whats provided in the array and opt the player out for the rest.
    * Empty array opt the player out from all offers and newsletters.
    */
-  async optOutChoices(params: OptOutChoicesParams) {
-    return this.http.post("/player/opt-out-choices", params);
+  async optOutChoices(params: OptOutChoicesParams, config?: EnjiRequestConfig) {
+    return this.http.post("/player/opt-out-choices", params, null, config);
   }
 
   /**
@@ -302,8 +406,17 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async tournamentOptIn(params: TournamentOptInParams) {
-    return this.http.post("/player/tournament-opt-in", params, sessionId);
+  async tournamentOptIn(
+    sessionId: string,
+    params: TournamentOptInParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/player/tournament-opt-in",
+      params,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -311,22 +424,26 @@ export class PlayerClient extends BaseClient {
    *
    * Requires session
    */
-  async getPagesToDisplay() {
-    return this.http.get<LoginPage[]>("/player/display-pages", null, sessionId);
+  async getPagesToDisplay(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<LoginPage[]>(
+      "/player/display-pages",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
    * Request OTP for player
    */
   async requestOTP(
-    jurisdiction: Jurisdiction,
-    countryCode: string,
-    mobile: string
+    params: {
+      jurisdiction: Jurisdiction;
+      countryCode: string;
+      mobile: string;
+    },
+    config?: EnjiRequestConfig
   ) {
-    return this.http.get("/player/request-otp", {
-      jurisdiction,
-      countryCode,
-      mobile,
-    });
+    return this.http.get("/player/request-otp", params, null, config);
   }
 }

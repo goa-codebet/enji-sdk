@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { PlayerProperty, SetPlayerPropertiesParams } from "./types";
 
@@ -12,11 +13,12 @@ export class PlayerPropertiesClient extends BaseClient {
    *
    * Requires session
    */
-  async get() {
+  async get(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<PlayerProperty[]>(
       "/player-properties",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -25,22 +27,28 @@ export class PlayerPropertiesClient extends BaseClient {
    *
    * Requires session
    */
-  async set(params: SetPlayerPropertiesParams) {
+  async set(
+    params: SetPlayerPropertiesParams,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post<PlayerProperty[]>(
       "/player-properties",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 
   /**
    * Get specific property of a player
    */
-  async getByName(name: string) {
+  async getByName(name: string, sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<PlayerProperty>(
       `/player-properties/${name}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 }

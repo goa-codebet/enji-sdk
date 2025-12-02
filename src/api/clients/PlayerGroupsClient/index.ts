@@ -1,9 +1,10 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 
 export class PlayerGroupsClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -11,7 +12,7 @@ export class PlayerGroupsClient extends BaseClient {
    *
    * Requires session
    */
-  async getPlayerGroups() {
-    return this.http.get<string[]>("/player-groups", null, this.sessionId);
+  async getPlayerGroups(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<string[]>("/player-groups", null, sessionId, config);
   }
 }

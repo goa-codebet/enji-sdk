@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { InternalMessage, InternalMessageStatus } from "./types";
 
@@ -12,11 +13,12 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getAll() {
+  async getAll(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<InternalMessage[]>(
       "/internalmessages",
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -25,11 +27,16 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getByStatus(status: InternalMessageStatus) {
+  async getByStatus(
+    status: InternalMessageStatus,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<InternalMessage[]>(
       "/internalmessages/with-status",
       { status },
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -40,11 +47,16 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async getById(messageId: number) {
+  async getById(
+    messageId: number,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<InternalMessage>(
       "/internalmessages/with-status",
       { messageId },
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -53,11 +65,17 @@ export class InternalMessagingClient extends BaseClient {
    *
    * Requires session
    */
-  async markMessage(MessageId: number, Status: InternalMessageStatus) {
+  async markMessage(
+    MessageId: number,
+    Status: InternalMessageStatus,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post(
       "/internalmessages/mark",
       { MessageId, Status },
-      sessionId
+      sessionId,
+      config
     );
   }
 }

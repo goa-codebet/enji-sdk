@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { TournamentInfo, TournamentLeaderboard } from "./types";
 
@@ -17,12 +18,14 @@ export class CasinoTournamentClient extends BaseClient {
       tableId?: string;
       orderBy?: string;
       sortDescending?: boolean;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -36,12 +39,14 @@ export class CasinoTournamentClient extends BaseClient {
       TableId?: string;
       OrderBy?: string;
       SortDescending?: boolean;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/active",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -55,12 +60,14 @@ export class CasinoTournamentClient extends BaseClient {
       TableId?: string;
       OrderBy?: string;
       SortDescending?: boolean;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/finished",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -74,12 +81,14 @@ export class CasinoTournamentClient extends BaseClient {
       TableId?: string;
       OrderBy?: string;
       SortDescending?: boolean;
-    }
+    },
+    config?: EnjiRequestConfig
   ) {
     return this.http.get<TournamentInfo[]>(
       "/casinotournament/upcoming",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 

@@ -1,10 +1,11 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { AddSourceOfWealthFormParams, KycDocument, KycReport } from "./types";
 
 export class KycClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -14,8 +15,12 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async uploadDocument(document: KycDocument) {
-    return this.http.post("/kyc/upload", document, this.sessionId);
+  async uploadDocument(
+    sessionId: string,
+    document: KycDocument,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post("/kyc/upload", document, sessionId, config);
   }
 
   /**
@@ -23,8 +28,8 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async getDocuments() {
-    return this.http.get<KycReport[]>("/kyc", null, this.sessionId);
+  async getDocuments(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<KycReport[]>("/kyc", null, sessionId, config);
   }
 
   /**
@@ -34,7 +39,16 @@ export class KycClient extends BaseClient {
    *
    * Requires session
    */
-  async addSourceOfWealthFormV2(params: AddSourceOfWealthFormParams) {
-    return this.http.post("/kyc/source-of-wealth/v2", params, this.sessionId);
+  async addSourceOfWealthFormV2(
+    sessionId: string,
+    params: AddSourceOfWealthFormParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/kyc/source-of-wealth/v2",
+      params,
+      sessionId,
+      config
+    );
   }
 }

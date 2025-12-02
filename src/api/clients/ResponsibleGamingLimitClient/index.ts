@@ -1,10 +1,11 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { AddLimit, Limit } from "./types";
 
 export class ResponsibleGamingLimitClient extends BaseClient {
-  constructor(http: Http, sessionId: string | null = null) {
-    super(http, sessionId);
+  constructor(http: Http) {
+    super(http);
   }
 
   /**
@@ -12,11 +13,12 @@ export class ResponsibleGamingLimitClient extends BaseClient {
    *
    * Requires session
    */
-  async getAll() {
+  async getAll(sessionId: string, config?: EnjiRequestConfig) {
     return this.http.get<Limit[]>(
       "/responsiblegaming/limit",
       null,
-      this.sessionId
+      sessionId,
+      config
     );
   }
 
@@ -27,15 +29,26 @@ export class ResponsibleGamingLimitClient extends BaseClient {
    *
    * Requires session
    */
-  async add(limit: AddLimit) {
-    return this.http.post("/responsiblegaming/limit/v2", limit, this.sessionId);
+  async add(sessionId: string, limit: AddLimit, config?: EnjiRequestConfig) {
+    return this.http.post(
+      "/responsiblegaming/limit/v2",
+      limit,
+      sessionId,
+      config
+    );
   }
 
-  async remove(id: number, pgsiScore?: number) {
+  async remove(
+    sessionId: string,
+    id: number,
+    pgsiScore?: number,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post(
       `/responsiblegaming/limit/cancel/${id}${pgsiScore ? `?pgsiScore=${pgsiScore}` : ""}`,
       null,
-      this.sessionId
+      sessionId,
+      config
     );
   }
 }

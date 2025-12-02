@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { CasinoGame, CasinoGameInfo, Platform } from "./types";
 export class CasinoClient extends BaseClient {
@@ -9,19 +10,24 @@ export class CasinoClient extends BaseClient {
   /**
    * Get a list of all active casino games
    */
-  async getAll() {
-    return this.http.get<CasinoGame[]>("/casino");
+  async getAll(config?: EnjiRequestConfig) {
+    return this.http.get<CasinoGame[]>("/casino", null, null, config);
   }
 
   /**
    * Gets all information that is required to launch the specific game
    *
    */
-  async getGameInfo(sessionId: string, gameId: number) {
+  async getGameInfo(
+    sessionId: string,
+    gameId: number,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<CasinoGameInfo>(
       `/casino/gameinfo/${gameId}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -34,7 +40,8 @@ export class CasinoClient extends BaseClient {
     sessionId: string,
     gameId: number,
     tableId?: number,
-    setLinkedGames?: boolean
+    setLinkedGames?: boolean,
+    config?: EnjiRequestConfig
   ) {
     const query = new URLSearchParams();
     if (tableId) {
@@ -46,7 +53,8 @@ export class CasinoClient extends BaseClient {
     return this.http.post<boolean>(
       `/casino/set-favorite/${gameId}?${query.toString()}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -59,7 +67,8 @@ export class CasinoClient extends BaseClient {
     sessionId: string,
     gameId: number,
     tableId?: number,
-    removeLinkedGames?: boolean
+    removeLinkedGames?: boolean,
+    config?: EnjiRequestConfig
   ) {
     const query = new URLSearchParams();
     if (tableId) {
@@ -71,7 +80,8 @@ export class CasinoClient extends BaseClient {
     return this.http.post<boolean>(
       `/casino/remove-favorite/${gameId}?${query.toString()}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -80,8 +90,13 @@ export class CasinoClient extends BaseClient {
    *
    * Requires session
    */
-  async getFavorites(sessionId: string) {
-    return this.http.get<CasinoGame[]>("/casino/favorites", null, sessionId);
+  async getFavorites(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<CasinoGame[]>(
+      "/casino/favorites",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**

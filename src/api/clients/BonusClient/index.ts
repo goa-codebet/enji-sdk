@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { BonusInstance, BonusOffer, OfferType, PendingBonus } from "./types";
 
@@ -11,8 +12,8 @@ export class BonusClient extends BaseClient {
    * Get a list of all bonuses (pending, active, expired, cleared)
    * Requires session
    */
-  async getAll(sessionId: string) {
-    return this.http.get<BonusInstance[]>("/bonus", null, sessionId);
+  async getAll(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<BonusInstance[]>("/bonus", null, sessionId, config);
   }
 
   /**
@@ -22,8 +23,13 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getFreeSpins(sessionId: string) {
-    return this.http.get<BonusInstance[]>("/bonus/free-spins", null, sessionId);
+  async getFreeSpins(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<BonusInstance[]>(
+      "/bonus/free-spins",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -31,8 +37,13 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getMonetary(sessionId: string) {
-    return this.http.get<BonusInstance[]>("/bonus/monetary", null, sessionId);
+  async getMonetary(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<BonusInstance[]>(
+      "/bonus/monetary",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -40,8 +51,13 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getPending(sessionId: string) {
-    return this.http.get<PendingBonus[]>("/bonus/pending", null, sessionId);
+  async getPending(sessionId: string, config?: EnjiRequestConfig) {
+    return this.http.get<PendingBonus[]>(
+      "/bonus/pending",
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -49,8 +65,13 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async get(sessionId: string, bonusId: number) {
-    return this.http.get<BonusInstance>(`/bonus/${bonusId}`, null, sessionId);
+  async get(sessionId: string, bonusId: number, config?: EnjiRequestConfig) {
+    return this.http.get<BonusInstance>(
+      `/bonus/${bonusId}`,
+      null,
+      sessionId,
+      config
+    );
   }
 
   /**
@@ -58,8 +79,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async claim(sessionId: string, bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/claim`, null, sessionId);
+  async claim(sessionId: string, bonusId: number, config?: EnjiRequestConfig) {
+    return this.http.post(`/bonus/${bonusId}/claim`, null, sessionId, config);
   }
 
   /**
@@ -67,8 +88,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async reject(sessionId: string, bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/reject`, null, sessionId);
+  async reject(sessionId: string, bonusId: number, config?: EnjiRequestConfig) {
+    return this.http.post(`/bonus/${bonusId}/reject`, null, sessionId, config);
   }
 
   /**
@@ -78,8 +99,8 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async cancel(sessionId: string, bonusId: number) {
-    return this.http.post(`/bonus/${bonusId}/cancel`, null, sessionId);
+  async cancel(sessionId: string, bonusId: number, config?: EnjiRequestConfig) {
+    return this.http.post(`/bonus/${bonusId}/cancel`, null, sessionId, config);
   }
 
   /**
@@ -87,11 +108,16 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async preclaim(sessionId: string, promoCode: string) {
+  async preclaim(
+    sessionId: string,
+    promoCode: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post<number>(
       `/bonus/preclaim/${promoCode}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -102,11 +128,16 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async trigger(sessionId: string, promoCode: string) {
+  async trigger(
+    sessionId: string,
+    promoCode: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post<number>(
       `/bonus/trigger/${promoCode}`,
       null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -117,7 +148,16 @@ export class BonusClient extends BaseClient {
    *
    * Requires session
    */
-  async getOffers(sessionId: string, type: OfferType) {
-    return this.http.get<BonusOffer[]>("/bonus/offers", { type }, sessionId);
+  async getOffers(
+    sessionId: string,
+    type: OfferType,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.get<BonusOffer[]>(
+      "/bonus/offers",
+      { type },
+      sessionId,
+      config
+    );
   }
 }

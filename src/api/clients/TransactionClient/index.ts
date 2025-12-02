@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import {
   GameTransaction,
@@ -19,11 +20,16 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getPayments(params?: GetPaymentsParams) {
+  async getPayments(
+    params?: GetPaymentsParams,
+    sessionId?: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<PaymentTransaction>(
       "/transaction/payments",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -32,11 +38,16 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getGameplayTransactions(params?: GetGamePlayTransactionsParams) {
+  async getGameplayTransactions(
+    params?: GetGamePlayTransactionsParams,
+    sessionId?: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<GameTransaction>(
       "/transaction/gameplay",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 
@@ -45,11 +56,16 @@ export class TransactionClient extends BaseClient {
    *
    * Requires session
    */
-  async getSportsbookBets(params?: GetSportsbookBetsParams) {
+  async getSportsbookBets(
+    params?: GetSportsbookBetsParams,
+    sessionId?: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.get<SportsbookBet>(
       "/transaction/sportsbookbets",
       params || null,
-      sessionId
+      sessionId,
+      config
     );
   }
 }

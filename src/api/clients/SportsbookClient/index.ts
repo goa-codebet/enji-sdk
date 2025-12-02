@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import {
   CreateBetssonContextParams,
@@ -14,11 +15,16 @@ export class SportsbookClient extends BaseClient {
    * Create Betsson sportsbook context
    * Requires session
    */
-  async createBetssonContext(params: CreateBetssonContextParams) {
+  async createBetssonContext(
+    params: CreateBetssonContextParams,
+    sessionId: string,
+    config?: EnjiRequestConfig
+  ) {
     return this.http.post<CreateBetssonContextResponse>(
       "/sportsbook/create-betsson-context",
       params,
-      sessionId
+      sessionId,
+      config
     );
   }
 }
