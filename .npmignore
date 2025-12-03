@@ -35,3 +35,4 @@ docs/
 *.log
 coverage/
 .nyc_output/
+.github/
