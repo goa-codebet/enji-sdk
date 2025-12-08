@@ -7,11 +7,9 @@ import {
   ActivateAccountResponse,
   CreateSSOTokenParams,
   LifetimeStatsResponse,
-  OptInOutResponse,
-  OptInParams,
+  OptInOut,
+  OptInOutParams,
   OptOutChoicesParams,
-  OptOutInResponse,
-  OptOutParams,
   PaymentStatsResponse,
   PlayerInfo,
   RequestActivationCodeParams,
@@ -359,7 +357,7 @@ export class PlayerClient extends BaseClient {
    * Requires session
    */
   async getOptInOuts(sessionId: string, config?: EnjiRequestConfig) {
-    return this.http.get<OptInOutResponse>(
+    return this.http.get<OptInOut[]>(
       "/player/opt-in-outs",
       null,
       sessionId,
@@ -371,7 +369,7 @@ export class PlayerClient extends BaseClient {
    * Get a list of all possible opt in/outs for a player
    */
   async getOptOutIns(unsubToken: string, config?: EnjiRequestConfig) {
-    return this.http.get<OptOutInResponse>(
+    return this.http.get<OptInOut[]>(
       "/player/opt-out-ins",
       {
         unsubToken,
@@ -387,7 +385,7 @@ export class PlayerClient extends BaseClient {
    */
   async optIn(
     sessionId: string,
-    params: OptInParams,
+    params: OptInOutParams,
     config?: EnjiRequestConfig
   ) {
     return this.http.post("/player/opt-in", params, sessionId, config);
@@ -399,7 +397,7 @@ export class PlayerClient extends BaseClient {
    */
   async optOut(
     sessionId: string,
-    params: OptOutParams,
+    params: OptInOutParams,
     config?: EnjiRequestConfig
   ) {
     return this.http.post("/player/opt-out", params, sessionId, config);

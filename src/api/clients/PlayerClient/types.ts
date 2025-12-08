@@ -365,15 +365,7 @@ export type OptInOut = {
   OptIn: boolean;
 };
 
-export type OptInOutResponse = OptInOut[];
-
-export type OptOutInResponse = OptInOut[];
-
-export type OptInParams = {
-  Type: PlayerOptInOutType;
-};
-
-export type OptOutParams = {
+export type OptInOutParams = {
   Type: PlayerOptInOutType;
 };
 
