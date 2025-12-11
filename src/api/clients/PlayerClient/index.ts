@@ -1,7 +1,7 @@
 import { Http } from "@/api/Http";
 import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
-import { Jurisdiction, LoginPage } from "@/api/types";
+import { Jurisdiction, LoginPage, RealityCheckSelection } from "@/api/types";
 import {
   ActivateAccountParams,
   ActivateAccountResponse,
@@ -438,6 +438,22 @@ export class PlayerClient extends BaseClient {
     return this.http.get<LoginPage[]>(
       "/player/display-pages",
       null,
+      sessionId,
+      config
+    );
+  }
+
+  async realityCheckSelection(
+    sessionId: string,
+    params: {
+      PageId: number;
+      RealityCheckSelection: RealityCheckSelection;
+    },
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/player/reality-check-selection",
+      params,
       sessionId,
       config
     );
