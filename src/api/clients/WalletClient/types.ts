@@ -11,7 +11,9 @@ export type BalanceSheet = {
   Bonus: WalletBalance;
 };
 
-export type PerCurrencyBalanceSheet = Record<Currency, WalletBalance>;
+export type PerCurrencyBalanceSheet = {
+  Balances: Record<Currency, BalanceSheet>;
+};
 
 export type GetBalanceParams = {
   product?: Product;
