@@ -256,9 +256,9 @@ export type SignInCodeParams = {
   RedirectUrl: string;
   State: string;
   Platform: Platform;
+  KycProvider: string;
   OperatingSystem?: string;
   Browser?: string;
-  AppVersion?: string;
   Marketing?: Marketing;
 };
 
