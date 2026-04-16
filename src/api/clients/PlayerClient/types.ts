@@ -27,6 +27,13 @@ export type SignUpIssue =
   | "DuplicateAccount"
   | "TimeoutIssuesCrossBrand";
 
+export type GetInitCodeUrlParams = {
+  redirect_uri: string;
+  platform: string;
+  display: string;
+  [key: string]: string;
+};
+
 export type SignUpParams = {
   Username?: string;
   Password: string;

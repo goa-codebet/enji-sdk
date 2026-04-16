@@ -6,6 +6,7 @@ import {
   ActivateAccountParams,
   ActivateAccountResponse,
   CreateSSOTokenParams,
+  GetInitCodeUrlParams,
   LifetimeStatsResponse,
   OptInOut,
   OptInOutParams,
@@ -34,6 +35,17 @@ import {
 export class PlayerClient extends BaseClient {
   constructor(http: Http) {
     super(http);
+  }
+
+  /**
+   * Initiates authorization via DevCode KYC system and returns a launch URL for BankID iframe. All query parameters sent here will be directly passed to DevCode in the format they are sent in here.
+   *
+   */
+  async getInitCodeUrl(
+    params: GetInitCodeUrlParams,
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.get<string>("/player/init/code", params, null, config);
   }
 
   /**
