@@ -265,10 +265,10 @@ export type SignInCodeParams = {
 export type SignInCodeResponse =
   | {
       SessionId: string;
-      JwtTokenSignUp: never;
+      JwtTokenSignup: never;
     }
   | {
-      JwtTokenSignUp: string;
+      JwtTokenSignup: string;
       SessionId: never;
     };
 
@@ -285,10 +285,10 @@ export type SignInSmsParams = {
 export type SignInSmsResponse =
   | {
       SessionId: string;
-      JwtTokenSignUp: never;
+      JwtTokenSignup: never;
     }
   | {
-      JwtTokenSignUp: string;
+      JwtTokenSignup: string;
       SessionId: never;
     };
 
