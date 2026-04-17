@@ -13,7 +13,7 @@ export type PlayerLimitType =
 
 export type AddLimitBase = {
   Type: PlayerLimitType;
-  Product: Product;
+  Product?: Product;
   StartTime?: string;
   PgsiScore?: number;
   PgsiScoreVersion?: PgsiScoreVersion;
