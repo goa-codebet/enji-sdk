@@ -26,7 +26,7 @@ import {
   SignUpCodeResponse,
   SignUpParams,
   SignUpResponse,
-  SignUpTokenparams,
+  SignUpTokenParams,
   SignUpTokenResponse,
   TournamentOptInParams,
   UpdatePlayerInfoParams,
