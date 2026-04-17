@@ -124,7 +124,7 @@ export type SignUpCodeResponse = {
   TacVersionAccepted?: string;
 };
 
-export type SignUpTokenparams = {
+export type SignUpTokenParams = {
   JwtTokenString: string;
   Jurisdiction: Jurisdiction;
   Email: string;
@@ -265,9 +265,11 @@ export type SignInCodeParams = {
 export type SignInCodeResponse =
   | {
       SessionId: string;
+      JwtTokenSignUp: never;
     }
   | {
       JwtTokenSignUp: string;
+      SessionId: never;
     };
 
 export type SignInSmsParams = {
@@ -283,9 +285,11 @@ export type SignInSmsParams = {
 export type SignInSmsResponse =
   | {
       SessionId: string;
+      JwtTokenSignUp: never;
     }
   | {
       JwtTokenSignUp: string;
+      SessionId: never;
     };
 
 export type CreateSSOTokenParams = {
