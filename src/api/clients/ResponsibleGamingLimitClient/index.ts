@@ -1,7 +1,7 @@
 import { Http } from "@/api/Http";
 import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
-import { AddLimit, Limit } from "./types";
+import { AddLimit, AddLimitBase, AddLimitDetails, Limit } from "./types";
 
 export class ResponsibleGamingLimitClient extends BaseClient {
   constructor(http: Http) {
@@ -46,6 +46,19 @@ export class ResponsibleGamingLimitClient extends BaseClient {
     return this.http.post(
       `/responsiblegaming/limit/cancel/${options.id}${options.pgsiScore ? `?pgsiScore=${options.pgsiScore}` : ""}`,
       null,
+      sessionId,
+      config
+    );
+  }
+
+  async addMultiple(
+    sessionId: string,
+    params: AddLimitBase & { Limits: AddLimitDetails[] },
+    config?: EnjiRequestConfig
+  ) {
+    return this.http.post(
+      "/responsiblegaming/limit/multiple-limits/v2",
+      params,
       sessionId,
       config
     );

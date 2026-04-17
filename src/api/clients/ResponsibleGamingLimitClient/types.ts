@@ -11,7 +11,7 @@ export type PlayerLimitType =
   | "LoginTime"
   | "ProductSession";
 
-export type AddLimit = {
+export type AddLimitBase = {
   Type: PlayerLimitType;
   Product: Product;
   StartTime?: string;
@@ -19,9 +19,14 @@ export type AddLimit = {
   PgsiScoreVersion?: PgsiScoreVersion;
   IsSignupLimit?: boolean;
   Currency?: Currency;
-  Amount: number;
-  Timespan?: number;
 };
+
+export type AddLimitDetails = {
+  Amount: number;
+  Timespan: number;
+};
+
+export type AddLimit = AddLimitBase & AddLimitDetails;
 
 export type Limit = {
   Id: number;
