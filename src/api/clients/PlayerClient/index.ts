@@ -77,7 +77,7 @@ export class PlayerClient extends BaseClient {
   /**
    * Sign up using JWT token
    */
-  async signUpWithToken(params: SignUpTokenparams, config?: EnjiRequestConfig) {
+  async signUpWithToken(params: SignUpTokenParams, config?: EnjiRequestConfig) {
     return this.http.post<SignUpTokenResponse>(
       "/player/signup/token",
       params,
