@@ -133,6 +133,7 @@ export type SignUpTokenParams = {
   Browser?: string;
   Username?: string;
   Country: string;
+  Currency: Currency;
   Language: string;
   MobilePhoneNumber?: string;
   PromoCode?: string;
