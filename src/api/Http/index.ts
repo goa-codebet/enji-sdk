@@ -1,4 +1,4 @@
-import { EnjiError } from "../../client/EnjiError";
+import type { EnjiResult } from "../../client/EnjiResult";
 import type { EnjiRequestConfig } from "./types";
 
 export class Http {
@@ -7,11 +7,9 @@ export class Http {
     this.host = host;
   }
 
-  private async handleResponse<T>(res: Response): Promise<T> {
+  private async handleResponse<T>(res: Response): Promise<EnjiResult<T>> {
     if (!res.ok) {
-      let errorData: Pick<EnjiError, "Code" | "Details"> & {
-        Message: string;
-      };
+      let errorData: { Code: string; Message: string; Details?: Record<string, string> };
       if (
         res.headers.get("Content-Length") === "0" ||
         !res.headers.get("Content-Type")?.includes("application/json")
@@ -23,14 +21,17 @@ export class Http {
       } else {
         errorData = await res.json();
       }
-      throw new EnjiError({
-        Code: errorData.Code,
-        Message: errorData.Message,
-        Details: errorData.Details,
-      });
+      return {
+        data: null,
+        error: {
+          code: errorData.Code,
+          message: errorData.Message,
+          details: errorData.Details,
+        },
+      };
     }
 
-    let data: T | undefined = undefined;
+    let data: T | null = null;
     if (
       res.headers.get("Content-Type")?.includes("application/json") &&
       res.headers.get("Content-Length") !== "0"
@@ -38,7 +39,7 @@ export class Http {
       data = await res.json();
     }
 
-    return data as T;
+    return { data: data as T, error: null };
   }
 
   async get<T = null>(
@@ -46,7 +47,7 @@ export class Http {
     data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null,
     config?: EnjiRequestConfig
-  ): Promise<T> {
+  ): Promise<EnjiResult<T>> {
     const url = new URL(path, this.host);
     if (data) {
       Object.entries(data).forEach(([key, value]) => {
@@ -82,7 +83,7 @@ export class Http {
     data: Record<string, unknown> | object | null = null,
     sessionId: string | null = null,
     config?: EnjiRequestConfig
-  ): Promise<T> {
+  ): Promise<EnjiResult<T>> {
     const url = new URL(path, this.host);
     const headers: Record<string, string> = {
       accept: "application/json",
