@@ -1,6 +1,6 @@
 {
   "name": "@goa-codebet/enji-sdk",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Codebrain <tech@codebrain.se>",
   "description": "An ECMAScript wrapper SDK around the Enji API",
   "scripts": {
