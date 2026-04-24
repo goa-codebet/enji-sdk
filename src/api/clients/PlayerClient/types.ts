@@ -266,17 +266,11 @@ export type SignInCodeParams = {
 export type SignInCodeResponse =
   | {
       SessionId: string;
+      JwtTokenSignup: null;
     }
   | {
-      SessionId: null | undefined;
-      PlayerInfo: {
-        FirstName?: string;
-        LastName?: string;
-        Street?: string;
-        HouseNumber?: string;
-        PostArea?: string;
-        PostCode?: string;
-      };
+      JwtTokenSignup: string;
+      SessionId: null;
     };
 
 export type SignInSmsParams = {
@@ -292,11 +286,17 @@ export type SignInSmsParams = {
 export type SignInSmsResponse =
   | {
       SessionId: string;
-      JwtTokenSignup: null;
     }
   | {
-      JwtTokenSignup: string;
-      SessionId: null;
+      SessionId: null | undefined;
+      PlayerInfo: {
+        FirstName?: string;
+        LastName?: string;
+        Street?: string;
+        HouseNumber?: string;
+        PostArea?: string;
+        PostCode?: string;
+      };
     };
 
 export type CreateSSOTokenParams = {
