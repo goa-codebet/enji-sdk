@@ -1,4 +1,5 @@
 import { Http } from "@/api/Http";
+import type { HttpOptions } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
 import { PlayerClient } from "../PlayerClient";
 import { ResponsibleGamingClient } from "../ResponsibleGamingClient";
@@ -37,8 +38,13 @@ export class EnjiClient extends BaseClient {
   private _transaction: TransactionClient;
   private _wallet: WalletClient;
 
-  constructor(host: string) {
-    const http = new Http(host);
+  constructor(
+    host: string,
+    apiId: string,
+    apiSecret: string,
+    options?: HttpOptions
+  ) {
+    const http = new Http(host, apiId, apiSecret, options);
     super(http);
     this._player = new PlayerClient(http);
     this._responsibleGaming = new ResponsibleGamingClient(http);
