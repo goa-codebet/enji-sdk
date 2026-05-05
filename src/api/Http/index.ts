@@ -29,7 +29,7 @@ export class Http {
 
   private sign(data: string): string {
     const sha = new jsSHA("SHA-256", "TEXT");
-    sha.setHMACKey(this.apiSecret, "TEXT");
+    sha.setHMACKey(this.apiSecret, "HEX");
     sha.update(data);
     return sha.getHMAC("B64");
   }
@@ -82,7 +82,11 @@ export class Http {
 
   private async handleResponse<T>(res: Response): Promise<EnjiResult<T>> {
     if (!res.ok) {
-      let errorData: { Code: string; Message: string; Details?: Record<string, string> };
+      let errorData: {
+        Code: string;
+        Message: string;
+        Details?: Record<string, string>;
+      };
       if (
         res.headers.get("Content-Length") === "0" ||
         !res.headers.get("Content-Type")?.includes("application/json")
@@ -131,7 +135,11 @@ export class Http {
     }
 
     const signedPath = url.pathname + url.search;
-    const authHeaders = await this.buildAuthHeaders(signedPath, sessionId, null);
+    const authHeaders = await this.buildAuthHeaders(
+      signedPath,
+      sessionId,
+      null
+    );
     const headers: Record<string, string> = {
       accept: "application/json",
       "content-type": "application/json",
@@ -162,7 +170,11 @@ export class Http {
   ): Promise<EnjiResult<T>> {
     const url = new URL(path, this.host);
     const signedPath = url.pathname + url.search;
-    const authHeaders = await this.buildAuthHeaders(signedPath, sessionId, data);
+    const authHeaders = await this.buildAuthHeaders(
+      signedPath,
+      sessionId,
+      data
+    );
     const headers: Record<string, string> = {
       accept: "application/json",
       ...authHeaders,
