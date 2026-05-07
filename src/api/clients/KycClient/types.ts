@@ -23,15 +23,21 @@ export type KycReport = {
   Added: string;
 };
 
-export type SouceOfWealthType = "AnnualIncome" | "ExpectedAnnualActivity";
+export type SourceOfWealthType = "ExpectedAnnualActivity";
 
-export type AddSourceOfWealthFormParams = {
-  Source?: string;
-  IncomeFromValue: number;
-  IncomeToValue: number;
-  Industry?: string;
-  Occupation?: string;
-  Nationality?: string;
-  CountryOfBirrthCode?: string;
-  Type: SouceOfWealthType;
-};
+export type AddSourceOfWealthFormParams =
+  | {
+      Type: SourceOfWealthType;
+      IncomeFromValue: number;
+      IncomeToValue: number;
+    }
+  | {
+      Type?: never;
+      Source: string;
+      IncomeFromValue: number;
+      IncomeToValue: number;
+      Industry: string;
+      Occupation: string;
+      Nationality: string;
+      CountryOfBirthCode: string;
+    };
