@@ -106,11 +106,11 @@ export type BonusInstance = {
   PreWageringRequirmentRemaining?: number;
   AmountRemaining?: number;
   Type?: string;
-  AmoutWon: number;
+  AmountWon: number;
   Product?: Product;
   WithdrawPolicy?: WithdrawPolicy;
   GameProps?: GameProps[];
-  GameProvider: GameProvider;
+  GameProvider?: GameProvider;
 };
 
 export type PendingBonusReward = {
