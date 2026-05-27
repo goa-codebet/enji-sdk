@@ -389,7 +389,7 @@ export type OptInOutParams = {
 
 export type OptOutChoicesParams = {
   OptOutToken: string;
-  OptInTypes: PlayerOptInOutType[];
+  OptIns: PlayerOptInOutType[];
 };
 
 export type TournamentOptInParams = {
