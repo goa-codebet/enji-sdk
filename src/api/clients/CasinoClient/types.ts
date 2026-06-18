@@ -1,4 +1,4 @@
-export type Platform = "Desktop" | "Mobile" | "Mini" | "Micro";
+import { Platform } from "@/api/types";
 
 export type Table = {
   TableId: number;

@@ -51,7 +51,7 @@ export type Jurisdiction =
 
 export type Gender = "Male" | "Female" | "Other";
 
-export type Platform = "Web" | "Mobile" | "Desktop";
+export type Platform = "desktop" | "mobile";
 
 export type Product =
   | "Payment"
