@@ -1,7 +1,8 @@
 import { Http } from "@/api/Http";
 import type { EnjiRequestConfig } from "@/api/Http/types";
 import { BaseClient } from "../BaseClient";
-import { CasinoGame, CasinoGameInfo, Platform } from "./types";
+import { CasinoGame, CasinoGameInfo } from "./types";
+import { Platform } from "@/api/types";
 export class CasinoClient extends BaseClient {
   constructor(http: Http) {
     super(http);
