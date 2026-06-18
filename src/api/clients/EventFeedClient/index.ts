@@ -12,15 +12,11 @@ export class EventFeedClient extends BaseClient {
   /**
    * Get all jackpots
    */
-  async getJackpots(
-    sessionId: string,
-    currency?: Currency,
-    config?: EnjiRequestConfig
-  ) {
+  async getJackpots(currency?: Currency, config?: EnjiRequestConfig) {
     return this.http.get<Jackpot[]>(
       "/event-feed/jackpots",
       { currency },
-      sessionId,
+      null,
       config
     );
   }
@@ -28,15 +24,11 @@ export class EventFeedClient extends BaseClient {
   /**
    * Get list of top games
    */
-  async getTopGames(
-    sessionId: string,
-    max: number,
-    config?: EnjiRequestConfig
-  ) {
+  async getTopGames(max: number, config?: EnjiRequestConfig) {
     return this.http.get<SkinGame[]>(
       `/event-feed/top-games/${max}`,
       null,
-      sessionId,
+      null,
       config
     );
   }
@@ -44,15 +36,11 @@ export class EventFeedClient extends BaseClient {
   /**
    * Get list of top games by total wager
    */
-  async getTopGamesByWager(
-    sessionId: string,
-    max: number,
-    config?: EnjiRequestConfig
-  ) {
+  async getTopGamesByWager(max: number, config?: EnjiRequestConfig) {
     return this.http.get<SkinGame[]>(
       `/event-feed/top-games-wager/${max}`,
       null,
-      sessionId,
+      null,
       config
     );
   }
@@ -60,15 +48,11 @@ export class EventFeedClient extends BaseClient {
   /**
    * Get list of top games by unique wagering customers
    */
-  async getTopGamesByUWC(
-    sessionId: string,
-    max: number,
-    config?: EnjiRequestConfig
-  ) {
+  async getTopGamesByUWC(max: number, config?: EnjiRequestConfig) {
     return this.http.get<SkinGame[]>(
       `/event-feed/top-games-uwc/${max}`,
       null,
-      sessionId,
+      null,
       config
     );
   }
